@@ -39,7 +39,16 @@ ec_on_title_change = {
 	trigger = {
 		OR = {
 			has_trait = ec_exalted_culturalist
-			any_living_character = {
+			any_in_list = {
+				variable = ec_bound_culturalists
+				count >= 1
+			}
+			any_vassal = {
+				has_trait = ec_exalted_culturalist
+				exists = var:ec_patron
+				var:ec_patron = root
+			}
+			any_courtier_or_guest = {
 				has_trait = ec_exalted_culturalist
 				exists = var:ec_patron
 				var:ec_patron = root
@@ -52,14 +61,44 @@ ec_on_title_change = {
 			ec_evaluate_strip_exalted_culturalist_effect = yes
 			ec_on_culture_head_change_refresh_effect = yes
 		}
-		every_living_character = {
+		if = {
 			limit = {
-				has_trait = ec_exalted_culturalist
-				exists = var:ec_patron
-				var:ec_patron = root
+				any_in_list = {
+					variable = ec_bound_culturalists
+					count >= 1
+				}
 			}
-			ec_evaluate_strip_exalted_culturalist_effect = yes
-			ec_on_culture_head_change_refresh_effect = yes
+			every_in_list = {
+				variable = ec_bound_culturalists
+				limit = {
+					is_alive = yes
+					has_trait = ec_exalted_culturalist
+					exists = var:ec_patron
+					var:ec_patron = root
+				}
+				ec_evaluate_strip_exalted_culturalist_effect = yes
+				ec_on_culture_head_change_refresh_effect = yes
+			}
+		}
+		else = {
+			every_vassal = {
+				limit = {
+					has_trait = ec_exalted_culturalist
+					exists = var:ec_patron
+					var:ec_patron = root
+				}
+				ec_evaluate_strip_exalted_culturalist_effect = yes
+				ec_on_culture_head_change_refresh_effect = yes
+			}
+			every_courtier_or_guest = {
+				limit = {
+					has_trait = ec_exalted_culturalist
+					exists = var:ec_patron
+					var:ec_patron = root
+				}
+				ec_evaluate_strip_exalted_culturalist_effect = yes
+				ec_on_culture_head_change_refresh_effect = yes
+			}
 		}
 	}
 }
@@ -86,6 +125,7 @@ ec_yearly_culture_check = {
 		has_trait = ec_exalted_culturalist
 	}
 	effect = {
+		ec_register_bound_culturalist_effect = yes
 		ec_evaluate_strip_exalted_culturalist_effect = yes
 		ec_on_culture_head_change_refresh_effect = yes
 		ec_yearly_acceptance_drip_effect = yes
@@ -98,13 +138,24 @@ on_death = {
 
 ec_on_death = {
 	effect = {
-		# Dying patron: rebind or strip culturalists
+		# Dying patron: rebind or strip culturalists (list / realm — never full-world)
 		if = {
 			limit = {
-				any_living_character = {
-					has_trait = ec_exalted_culturalist
-					exists = var:ec_patron
-					var:ec_patron = root
+				OR = {
+					any_in_list = {
+						variable = ec_bound_culturalists
+						count >= 1
+					}
+					any_vassal = {
+						has_trait = ec_exalted_culturalist
+						exists = var:ec_patron
+						var:ec_patron = root
+					}
+					any_courtier_or_guest = {
+						has_trait = ec_exalted_culturalist
+						exists = var:ec_patron
+						var:ec_patron = root
+					}
 				}
 			}
 			ec_on_patron_death_effect = yes

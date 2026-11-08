@@ -37,21 +37,20 @@ ec_actor_may_bestow_by_rule = {
 }
 
 ec_patron_under_culturalist_cap = {
-	# this = patron/actor. Save before any_living_character (where this becomes the iteratee).
+	# this = patron/actor. Binder list only (no full-world).
 	trigger_if = {
 		limit = { has_game_rule = ec_rule_max_culturalists_unlimited }
 		always = yes
 	}
 	trigger_else = {
-		save_temporary_scope_as = ec_cap_patron
 		custom_tooltip = {
 			text = ec_tt_under_culturalist_cap
 			NOT = {
-				any_living_character = {
+				any_in_list = {
+					variable = ec_bound_culturalists
 					count >= ec_max_culturalists_value
+					is_alive = yes
 					has_trait = ec_exalted_culturalist
-					exists = var:ec_patron
-					var:ec_patron = scope:ec_cap_patron
 				}
 			}
 		}
