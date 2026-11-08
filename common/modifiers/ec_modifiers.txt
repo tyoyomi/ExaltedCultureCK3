@@ -55,3 +55,9 @@ ec_tradition_slots_mid_modifier = {
 ec_tradition_slots_high_modifier = {
 	culture_tradition_max_add = @ec_tradition_slots_high
 }
+
+### Expansion — language mastery (scheme slots + phase speed)
+ec_language_mastery_modifier = {
+	max_learn_language_schemes_add = 10
+	learn_language_scheme_phase_duration_add = -30
+}

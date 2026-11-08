@@ -84,3 +84,76 @@ ec_inspire_acceptance_decision = {
 		}
 	}
 }
+
+ec_instant_convert_counties_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_misc.dds"
+	}
+	decision_group_type = major
+	desc = ec_instant_convert_counties_decision_desc
+	selection_tooltip = ec_instant_convert_counties_decision_tooltip
+	confirm_text = ec_instant_convert_counties_decision_confirm
+
+	ai_check_interval = 0
+	cooldown = { days = 365 }
+
+	is_shown = {
+		is_alive = yes
+		is_ai = no
+		has_trait = ec_exalted_culturalist
+		NOT = { has_game_rule = ec_rule_granting_disabled }
+	}
+
+	is_valid = {
+		custom_tooltip = {
+			text = ec_tt_instant_convert_ready
+			is_landed = yes
+			exists = culture
+			any_sub_realm_county = {
+				NOT = { culture = root.culture }
+			}
+		}
+	}
+
+	effect = {
+		custom_tooltip = ec_instant_convert_counties_decision_effect_tt
+		ec_instant_convert_subrealm_counties_effect = yes
+	}
+
+	ai_potential = { always = no }
+	ai_will_do = { base = 0 }
+}
+
+ec_master_languages_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_misc.dds"
+	}
+	decision_group_type = major
+	desc = ec_master_languages_decision_desc
+	selection_tooltip = ec_master_languages_decision_tooltip
+	confirm_text = ec_master_languages_decision_confirm
+
+	ai_check_interval = 0
+
+	is_shown = {
+		is_alive = yes
+		is_ai = no
+		has_trait = ec_exalted_culturalist
+		NOT = { has_game_rule = ec_rule_granting_disabled }
+	}
+
+	is_valid = {
+		custom_tooltip = {
+			text = ec_tt_master_languages_ready
+			is_landed = yes
+		}
+	}
+
+	effect = {
+		custom_tooltip = ec_master_languages_decision_effect_tt
+		ec_master_all_realm_languages_effect = yes
+	}
+
+	ai_potential = { always = no }
+	ai_will_do = { base = 0 }
+}
