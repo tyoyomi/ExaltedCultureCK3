@@ -1,0 +1,57 @@
+# Exalted Culture — tier modifiers (refreshed by ec_refresh_culturalist_modifiers_effect)
+# Full package (culture head) only for cultural_head_* / tradition slots / fascination.
+
+@ec_fasc_add_low = 10
+@ec_fasc_mult_low = 0.25
+@ec_innov_chance_low = 5
+
+@ec_fasc_add_mid = 25
+@ec_fasc_mult_mid = 0.75
+@ec_innov_chance_mid = 15
+
+@ec_fasc_add_high = 50
+@ec_fasc_mult_high = 1.5
+@ec_innov_chance_high = 30
+
+@ec_accept_mult_low = 0.25
+@ec_accept_mult_mid = 0.75
+@ec_accept_mult_high = 1.5
+
+@ec_tradition_slots_mid = 1
+@ec_tradition_slots_high = 2
+
+### Fascination / innovations (full package only)
+ec_fascination_low_modifier = {
+	cultural_head_fascination_add = @ec_fasc_add_low
+	cultural_head_fascination_mult = @ec_fasc_mult_low
+	character_innovation_progress_chance_from_fascination_add = @ec_innov_chance_low
+}
+ec_fascination_mid_modifier = {
+	cultural_head_fascination_add = @ec_fasc_add_mid
+	cultural_head_fascination_mult = @ec_fasc_mult_mid
+	character_innovation_progress_chance_from_fascination_add = @ec_innov_chance_mid
+}
+ec_fascination_high_modifier = {
+	cultural_head_fascination_add = @ec_fasc_add_high
+	cultural_head_fascination_mult = @ec_fasc_mult_high
+	character_innovation_progress_chance_from_fascination_add = @ec_innov_chance_high
+}
+
+### Acceptance gain (full package — cultural head mult)
+ec_acceptance_low_modifier = {
+	cultural_head_acceptance_gain_mult = @ec_accept_mult_low
+}
+ec_acceptance_mid_modifier = {
+	cultural_head_acceptance_gain_mult = @ec_accept_mult_mid
+}
+ec_acceptance_high_modifier = {
+	cultural_head_acceptance_gain_mult = @ec_accept_mult_high
+}
+
+### Extra tradition slots (full package; Low = 0 → no modifier)
+ec_tradition_slots_mid_modifier = {
+	culture_tradition_max_add = @ec_tradition_slots_mid
+}
+ec_tradition_slots_high_modifier = {
+	culture_tradition_max_add = @ec_tradition_slots_high
+}

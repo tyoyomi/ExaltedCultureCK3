@@ -1,0 +1,85 @@
+namespace = ec_events
+
+# Granter: successfully bestowed
+ec_events.1001 = {
+	type = character_event
+	title = ec_events.1001.t
+	desc = ec_events.1001.desc
+	theme = culture_change
+
+	option = {
+		name = ec_events.1001.a
+	}
+}
+
+# Recipient: you were exalted
+ec_events.1002 = {
+	type = character_event
+	title = ec_events.1002.t
+	desc = ec_events.1002.desc
+	theme = culture_change
+
+	option = {
+		name = ec_events.1002.a
+	}
+}
+
+# Granter: manually revoked
+ec_events.1101 = {
+	type = character_event
+	title = ec_events.1101.t
+	desc = ec_events.1101.desc
+	theme = culture_change
+
+	option = {
+		name = ec_events.1101.a
+	}
+}
+
+# Granter: status stripped — left realm
+ec_events.1201 = {
+	type = character_event
+	title = ec_events.1201.t
+	desc = ec_events.1201.desc
+	theme = culture_change
+
+	option = {
+		name = ec_events.1201.a
+	}
+}
+
+# Former holder: exaltation ended (realm)
+ec_events.1202 = {
+	type = character_event
+	title = ec_events.1202.t
+	desc = ec_events.1202.desc
+	theme = culture_change
+
+	option = {
+		name = ec_events.1202.a
+	}
+}
+
+# Holder: became culture head — full package unlocked
+ec_events.1301 = {
+	type = character_event
+	title = ec_events.1301.t
+	desc = ec_events.1301.desc
+	theme = culture_change
+
+	option = {
+		name = ec_events.1301.a
+	}
+}
+
+# Holder: lost culture head — package reduced
+ec_events.1302 = {
+	type = character_event
+	title = ec_events.1302.t
+	desc = ec_events.1302.desc
+	theme = culture_change
+
+	option = {
+		name = ec_events.1302.a
+	}
+}

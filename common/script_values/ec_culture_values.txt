@@ -1,0 +1,296 @@
+# Exalted Culture — LIOS overrides for tradition cost/cooldown (+ optional hybrid threshold)
+# Copies vanilla 1.20 bodies and appends EC culture-head branches.
+# Workshop note: conflicts with other mods that also redefine these keys.
+
+### Tradition cooldown (vanilla base 50y + kurultai; EC full-package head discount)
+add_tradition_cooldown = {
+	value = 50
+	if = {
+		limit = {
+			culture_head ?= {
+				has_variable = kurultai_culture_variable_value
+			}
+		}
+		multiply = {
+			value = 100
+			subtract = culture_head.var:kurultai_culture_variable_value
+			divide = 100
+		}
+	}
+	# EC: Low ×0.75 / Mid ×0.5 / High ×0.25 when culture head has full package
+	if = {
+		limit = {
+			culture_head ?= {
+				has_trait = ec_exalted_culturalist
+				has_character_flag = ec_full_package
+				exists = var:ec_tradition_tier
+				var:ec_tradition_tier = 1
+			}
+		}
+		multiply = 0.75
+	}
+	else_if = {
+		limit = {
+			culture_head ?= {
+				has_trait = ec_exalted_culturalist
+				has_character_flag = ec_full_package
+				exists = var:ec_tradition_tier
+				var:ec_tradition_tier = 3
+			}
+		}
+		multiply = 0.25
+	}
+	else_if = {
+		limit = {
+			culture_head ?= {
+				has_trait = ec_exalted_culturalist
+				has_character_flag = ec_full_package
+			}
+		}
+		multiply = 0.5
+	}
+}
+
+tradition_base_cost = {
+	value = 2000
+	if = {
+		limit = {
+			culture_head ?= {
+				has_variable = kurultai_culture_variable_value
+			}
+		}
+		multiply = {
+			value = 100
+			subtract = culture_head.var:kurultai_culture_variable_value
+			divide = 100
+		}
+	}
+	if = {
+		limit = {
+			culture_head ?= {
+				has_trait = ec_exalted_culturalist
+				has_character_flag = ec_full_package
+				exists = var:ec_tradition_tier
+				var:ec_tradition_tier = 1
+			}
+		}
+		multiply = 0.75
+	}
+	else_if = {
+		limit = {
+			culture_head ?= {
+				has_trait = ec_exalted_culturalist
+				has_character_flag = ec_full_package
+				exists = var:ec_tradition_tier
+				var:ec_tradition_tier = 3
+			}
+		}
+		multiply = 0.25
+	}
+	else_if = {
+		limit = {
+			culture_head ?= {
+				has_trait = ec_exalted_culturalist
+				has_character_flag = ec_full_package
+			}
+		}
+		multiply = 0.5
+	}
+}
+
+tradition_incompatible_ethos_penalty = {
+	value = 2000
+	if = {
+		limit = {
+			culture_head ?= {
+				has_variable = kurultai_culture_variable_value
+			}
+		}
+		multiply = {
+			value = 100
+			subtract = culture_head.var:kurultai_culture_variable_value
+			divide = 100
+		}
+	}
+	if = {
+		limit = {
+			culture_head ?= {
+				has_trait = ec_exalted_culturalist
+				has_character_flag = ec_full_package
+				exists = var:ec_tradition_tier
+				var:ec_tradition_tier = 1
+			}
+		}
+		multiply = 0.75
+	}
+	else_if = {
+		limit = {
+			culture_head ?= {
+				has_trait = ec_exalted_culturalist
+				has_character_flag = ec_full_package
+				exists = var:ec_tradition_tier
+				var:ec_tradition_tier = 3
+			}
+		}
+		multiply = 0.25
+	}
+	else_if = {
+		limit = {
+			culture_head ?= {
+				has_trait = ec_exalted_culturalist
+				has_character_flag = ec_full_package
+			}
+		}
+		multiply = 0.5
+	}
+}
+
+tradition_unfulfilled_criteria_penalty = {
+	value = 3000
+	if = {
+		limit = {
+			culture_head ?= {
+				has_variable = kurultai_culture_variable_value
+			}
+		}
+		multiply = {
+			value = 100
+			subtract = culture_head.var:kurultai_culture_variable_value
+			divide = 100
+		}
+	}
+	if = {
+		limit = {
+			culture_head ?= {
+				has_trait = ec_exalted_culturalist
+				has_character_flag = ec_full_package
+				exists = var:ec_tradition_tier
+				var:ec_tradition_tier = 1
+			}
+		}
+		multiply = 0.75
+	}
+	else_if = {
+		limit = {
+			culture_head ?= {
+				has_trait = ec_exalted_culturalist
+				has_character_flag = ec_full_package
+				exists = var:ec_tradition_tier
+				var:ec_tradition_tier = 3
+			}
+		}
+		multiply = 0.25
+	}
+	else_if = {
+		limit = {
+			culture_head ?= {
+				has_trait = ec_exalted_culturalist
+				has_character_flag = ec_full_package
+			}
+		}
+		multiply = 0.5
+	}
+}
+
+### Hybridization threshold — vanilla body + optional EC assist (game rule + Mid/High hybrid tier)
+hybridization_threshold_value = {
+	value = hybridization_threshold_flat_number_value
+	# Cultural Parameters
+	if = {
+		limit = {
+			root.culture = {
+				has_cultural_parameter = easier_to_hybridize
+			}
+		}
+		multiply = 0.5
+	}
+	else_if = {
+		limit = {
+			root = {
+				has_trait = nomadic_philosophy
+				NOT = {
+					government_has_flag = government_is_nomadic
+				}
+			}
+		}
+		multiply = 0.5
+	}
+	if = {
+		limit = {
+			root.culture = {
+				has_cultural_parameter = harder_to_hybridize
+			}
+		}
+		multiply = 2
+	}
+	if = {
+		limit = {
+			exists = scope:culture
+			scope:culture = {
+				has_cultural_parameter = harder_to_hybridize
+			}
+		}
+		multiply = 2
+	}
+	# Struggles
+	if = {
+		limit = {
+			exists = scope:culture
+			root = {
+				OR = {
+					any_character_struggle = {
+						involvement = involved
+						has_struggle_phase_parameter = easier_culture_hybridising_for_involved_and_interlopers
+						is_culture_involved_in_struggle = scope:culture
+					}
+					any_character_struggle = {
+						involvement = interloper
+						has_struggle_phase_parameter = easier_culture_hybridising_for_involved_and_interlopers
+						is_culture_involved_in_struggle = scope:culture
+					}
+				}
+			}
+		}
+		multiply = 0.5
+	}
+	# Events
+	if = {
+		limit = {
+			root = {
+				exists = var:special_culture
+				var:special_culture = scope:culture
+			}
+		}
+		multiply = 0.75
+	}
+	# Council Position
+	if = {
+		limit = {
+			root = {
+				has_variable = kurultai_culture_variable_value
+			}
+		}
+		multiply = {
+			value = 100
+			subtract = root.var:kurultai_culture_variable_value
+			divide = 100
+		}
+	}
+	# EC: treat as ~20 (×0.5) when rule allows, culture head has full package, hybrid tier Mid+
+	if = {
+		limit = {
+			has_game_rule = ec_rule_hybrid_assist_acceptance_and_threshold
+			root.culture = {
+				culture_head ?= {
+					has_trait = ec_exalted_culturalist
+					has_character_flag = ec_full_package
+					exists = var:ec_hybrid_tier
+					var:ec_hybrid_tier >= 2
+				}
+			}
+		}
+		multiply = 0.5
+	}
+	max = 100
+	min = 0
+}

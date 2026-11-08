@@ -1,0 +1,176 @@
+ec_bestow_exalted_culturalist_interaction = {
+	category = interaction_category_friendly
+	icon = scroll
+	interface_priority = 60
+	common_interaction = yes
+
+	desc = ec_bestow_exalted_culturalist_interaction_desc
+
+	auto_accept = yes
+
+	is_shown = {
+		NOT = { has_game_rule = ec_rule_granting_disabled }
+		scope:actor = {
+			is_alive = yes
+			ec_actor_may_bestow_by_rule = yes
+		}
+		scope:recipient = {
+			is_alive = yes
+			NOT = { has_trait = ec_exalted_culturalist }
+		}
+		OR = {
+			AND = {
+				has_game_rule = ec_rule_self_grant_yes
+				scope:actor = scope:recipient
+			}
+			scope:actor != scope:recipient
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		scope:actor = {
+			custom_tooltip = {
+				text = ec_tt_actor_may_bestow
+				ec_can_actor_bestow = yes
+			}
+		}
+		scope:recipient = {
+			custom_tooltip = {
+				text = ec_tt_can_receive_exalted_culturalist
+				ec_can_receive_exalted_culturalist = yes
+			}
+		}
+	}
+
+	on_accept = {
+		scope:actor = { save_scope_as = ec_patron }
+		scope:recipient = {
+			ec_bestow_exalted_culturalist_effect = yes
+		}
+	}
+
+	ai_targets = {
+		ai_recipients = courtiers
+		chance = 0.1
+	}
+	ai_targets = {
+		ai_recipients = vassals
+		chance = 0.05
+	}
+	ai_target_quick_trigger = {
+		adult = yes
+	}
+	ai_frequency = 120
+
+	ai_potential = {
+		has_game_rule = ec_rule_granting_player_and_ai
+		ec_patron_under_culturalist_cap = yes
+	}
+
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = 40
+			scope:recipient = {
+				ec_is_culture_head = yes
+			}
+		}
+		modifier = {
+			add = 15
+			scope:recipient = {
+				learning >= 15
+			}
+		}
+		modifier = {
+			add = 10
+			scope:actor = {
+				opinion = {
+					target = scope:recipient
+					value >= 50
+				}
+			}
+		}
+		modifier = {
+			add = 10
+			scope:recipient = {
+				culture = scope:actor.culture
+			}
+		}
+		modifier = {
+			add = -100
+			AND = {
+				has_game_rule = ec_rule_mutual_exclusion_block_with_sovereign
+				scope:recipient = {
+					ec_character_is_supreme_sovereign = yes
+				}
+			}
+		}
+		modifier = {
+			add = -50
+			AND = {
+				has_game_rule = ec_rule_require_culture_head_head_only
+				scope:recipient = {
+					NOT = { ec_is_culture_head = yes }
+				}
+			}
+		}
+	}
+}
+
+ec_revoke_exalted_culturalist_interaction = {
+	category = interaction_category_hostile
+	icon = scroll_scales
+	interface_priority = 59
+	common_interaction = yes
+
+	desc = ec_revoke_exalted_culturalist_interaction_desc
+
+	auto_accept = yes
+
+	is_shown = {
+		scope:actor = {
+			is_alive = yes
+		}
+		scope:recipient = {
+			is_alive = yes
+			has_trait = ec_exalted_culturalist
+			exists = var:ec_patron
+			var:ec_patron = scope:actor
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		scope:recipient = {
+			custom_tooltip = {
+				text = ec_tt_is_your_exalted_culturalist
+				ec_actor_is_patron_of_recipient = yes
+			}
+		}
+	}
+
+	on_accept = {
+		scope:actor = { save_scope_as = ec_patron }
+		scope:recipient = {
+			ec_revoke_exalted_culturalist_effect = yes
+		}
+	}
+
+	ai_targets = {
+		ai_recipients = courtiers
+		chance = 0.05
+	}
+	ai_targets = {
+		ai_recipients = vassals
+		chance = 0.05
+	}
+	ai_frequency = 240
+
+	ai_potential = {
+		has_game_rule = ec_rule_granting_player_and_ai
+		always = no # AI does not casually revoke in v1
+	}
+
+	ai_will_do = {
+		base = 0
+	}
+}

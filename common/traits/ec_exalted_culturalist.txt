@@ -1,0 +1,23 @@
+# Exalted Culture — baseline identity (tiered fascination/acceptance/tradition live on modifiers)
+
+@ec_learning_base = 30
+@ec_other_skill = 10
+@ec_monthly_prestige = 2
+
+ec_exalted_culturalist = {
+	category = fame
+	random_creation = 0
+	genetic = no
+	immortal = no
+	good = yes
+	shown_in_ruler_designer = yes
+
+	learning = @ec_learning_base
+	diplomacy = @ec_other_skill
+	martial = @ec_other_skill
+	stewardship = @ec_other_skill
+	intrigue = @ec_other_skill
+	prowess = @ec_other_skill
+
+	monthly_prestige = @ec_monthly_prestige
+}

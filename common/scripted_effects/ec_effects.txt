@@ -1,0 +1,580 @@
+# Exalted Culture — scripted effects
+# Bestow/revoke expect this = recipient and scope:ec_patron = granter (or actor for revoke notify).
+
+### Modifier clear / refresh (this = culturalist; reads cfg from living patron)
+ec_clear_culturalist_modifiers_effect = {
+	remove_character_modifier = ec_fascination_low_modifier
+	remove_character_modifier = ec_fascination_mid_modifier
+	remove_character_modifier = ec_fascination_high_modifier
+	remove_character_modifier = ec_acceptance_low_modifier
+	remove_character_modifier = ec_acceptance_mid_modifier
+	remove_character_modifier = ec_acceptance_high_modifier
+	remove_character_modifier = ec_tradition_slots_mid_modifier
+	remove_character_modifier = ec_tradition_slots_high_modifier
+	remove_variable = ec_tradition_tier
+	remove_variable = ec_hybrid_tier
+	remove_character_flag = ec_full_package
+}
+
+# this = patron (or any character holding hub cfg vars)
+ec_ensure_culturalist_defaults_effect = {
+	if = {
+		limit = { NOT = { exists = var:ec_cfg_fascination } }
+		if = {
+			limit = { has_game_rule = ec_rule_intensity_low }
+			set_variable = { name = ec_cfg_fascination value = 1 }
+			set_variable = { name = ec_cfg_tradition value = 1 }
+			set_variable = { name = ec_cfg_acceptance value = 1 }
+			set_variable = { name = ec_cfg_hybrid value = 1 }
+		}
+		else_if = {
+			limit = { has_game_rule = ec_rule_intensity_high }
+			set_variable = { name = ec_cfg_fascination value = 3 }
+			set_variable = { name = ec_cfg_tradition value = 3 }
+			set_variable = { name = ec_cfg_acceptance value = 3 }
+			set_variable = { name = ec_cfg_hybrid value = 3 }
+		}
+		else = {
+			set_variable = { name = ec_cfg_fascination value = 2 }
+			set_variable = { name = ec_cfg_tradition value = 2 }
+			set_variable = { name = ec_cfg_acceptance value = 2 }
+			set_variable = { name = ec_cfg_hybrid value = 2 }
+		}
+	}
+	if = {
+		limit = { NOT = { exists = var:ec_cfg_tradition } }
+		set_variable = { name = ec_cfg_tradition value = 2 }
+	}
+	if = {
+		limit = { NOT = { exists = var:ec_cfg_acceptance } }
+		set_variable = { name = ec_cfg_acceptance value = 2 }
+	}
+	if = {
+		limit = { NOT = { exists = var:ec_cfg_hybrid } }
+		set_variable = { name = ec_cfg_hybrid value = 2 }
+	}
+}
+
+ec_refresh_culturalist_modifiers_effect = {
+	# this = culturalist
+	ec_clear_culturalist_modifiers_effect = yes
+	if = {
+		limit = {
+			has_trait = ec_exalted_culturalist
+			exists = var:ec_patron
+			var:ec_patron = { is_alive = yes }
+		}
+		var:ec_patron = {
+			ec_ensure_culturalist_defaults_effect = yes
+			save_scope_as = ec_cfg_source
+		}
+
+		# Reduced package (non-head): Learning stays on trait; no cultural_head_* / tradition discounts
+		if = {
+			limit = { ec_full_culture_package_active = yes }
+			add_character_flag = ec_full_package
+
+			# Mirror tradition/hybrid tiers onto holder for LIOS script values
+			if = {
+				limit = { scope:ec_cfg_source = { var:ec_cfg_tradition = 1 } }
+				set_variable = { name = ec_tradition_tier value = 1 }
+			}
+			else_if = {
+				limit = { scope:ec_cfg_source = { var:ec_cfg_tradition = 3 } }
+				set_variable = { name = ec_tradition_tier value = 3 }
+			}
+			else = {
+				set_variable = { name = ec_tradition_tier value = 2 }
+			}
+			if = {
+				limit = { scope:ec_cfg_source = { var:ec_cfg_hybrid = 1 } }
+				set_variable = { name = ec_hybrid_tier value = 1 }
+			}
+			else_if = {
+				limit = { scope:ec_cfg_source = { var:ec_cfg_hybrid = 3 } }
+				set_variable = { name = ec_hybrid_tier value = 3 }
+			}
+			else = {
+				set_variable = { name = ec_hybrid_tier value = 2 }
+			}
+
+			# Fascination
+			if = {
+				limit = { scope:ec_cfg_source = { var:ec_cfg_fascination = 1 } }
+				add_character_modifier = {
+					modifier = ec_fascination_low_modifier
+					days = -1
+				}
+			}
+			else_if = {
+				limit = { scope:ec_cfg_source = { var:ec_cfg_fascination = 3 } }
+				add_character_modifier = {
+					modifier = ec_fascination_high_modifier
+					days = -1
+				}
+			}
+			else = {
+				add_character_modifier = {
+					modifier = ec_fascination_mid_modifier
+					days = -1
+				}
+			}
+
+			# Acceptance
+			if = {
+				limit = { scope:ec_cfg_source = { var:ec_cfg_acceptance = 1 } }
+				add_character_modifier = {
+					modifier = ec_acceptance_low_modifier
+					days = -1
+				}
+			}
+			else_if = {
+				limit = { scope:ec_cfg_source = { var:ec_cfg_acceptance = 3 } }
+				add_character_modifier = {
+					modifier = ec_acceptance_high_modifier
+					days = -1
+				}
+			}
+			else = {
+				add_character_modifier = {
+					modifier = ec_acceptance_mid_modifier
+					days = -1
+				}
+			}
+
+			# Tradition slots (Low = 0 → skip)
+			if = {
+				limit = { scope:ec_cfg_source = { var:ec_cfg_tradition = 2 } }
+				add_character_modifier = {
+					modifier = ec_tradition_slots_mid_modifier
+					days = -1
+				}
+			}
+			else_if = {
+				limit = { scope:ec_cfg_source = { var:ec_cfg_tradition = 3 } }
+				add_character_modifier = {
+					modifier = ec_tradition_slots_high_modifier
+					days = -1
+				}
+			}
+		}
+	}
+}
+
+# this = patron — refresh every bound culturalist
+ec_refresh_all_culturalists_for_patron_effect = {
+	save_scope_as = ec_refresh_patron
+	every_living_character = {
+		limit = {
+			has_trait = ec_exalted_culturalist
+			exists = var:ec_patron
+			var:ec_patron = scope:ec_refresh_patron
+		}
+		ec_refresh_culturalist_modifiers_effect = yes
+	}
+}
+
+### Cycle helpers — this = patron (hub root)
+ec_cycle_fascination_cfg_effect = {
+	ec_ensure_culturalist_defaults_effect = yes
+	if = {
+		limit = { var:ec_cfg_fascination = 1 }
+		set_variable = { name = ec_cfg_fascination value = 2 }
+	}
+	else_if = {
+		limit = { var:ec_cfg_fascination = 2 }
+		set_variable = { name = ec_cfg_fascination value = 3 }
+	}
+	else = {
+		set_variable = { name = ec_cfg_fascination value = 1 }
+	}
+	ec_refresh_all_culturalists_for_patron_effect = yes
+}
+
+ec_cycle_tradition_cfg_effect = {
+	ec_ensure_culturalist_defaults_effect = yes
+	if = {
+		limit = { var:ec_cfg_tradition = 1 }
+		set_variable = { name = ec_cfg_tradition value = 2 }
+	}
+	else_if = {
+		limit = { var:ec_cfg_tradition = 2 }
+		set_variable = { name = ec_cfg_tradition value = 3 }
+	}
+	else = {
+		set_variable = { name = ec_cfg_tradition value = 1 }
+	}
+	ec_refresh_all_culturalists_for_patron_effect = yes
+}
+
+ec_cycle_acceptance_cfg_effect = {
+	ec_ensure_culturalist_defaults_effect = yes
+	if = {
+		limit = { var:ec_cfg_acceptance = 1 }
+		set_variable = { name = ec_cfg_acceptance value = 2 }
+	}
+	else_if = {
+		limit = { var:ec_cfg_acceptance = 2 }
+		set_variable = { name = ec_cfg_acceptance value = 3 }
+	}
+	else = {
+		set_variable = { name = ec_cfg_acceptance value = 1 }
+	}
+	ec_refresh_all_culturalists_for_patron_effect = yes
+}
+
+ec_cycle_hybrid_cfg_effect = {
+	ec_ensure_culturalist_defaults_effect = yes
+	if = {
+		limit = { var:ec_cfg_hybrid = 1 }
+		set_variable = { name = ec_cfg_hybrid value = 2 }
+	}
+	else_if = {
+		limit = { var:ec_cfg_hybrid = 2 }
+		set_variable = { name = ec_cfg_hybrid value = 3 }
+	}
+	else = {
+		set_variable = { name = ec_cfg_hybrid value = 1 }
+	}
+	ec_refresh_all_culturalists_for_patron_effect = yes
+}
+
+### Headship refresh — notify on transition; always refresh package
+ec_on_culture_head_change_refresh_effect = {
+	if = {
+		limit = { has_trait = ec_exalted_culturalist }
+		if = {
+			limit = {
+				ec_is_culture_head = yes
+				NOT = { has_character_flag = ec_was_culture_head }
+			}
+			add_character_flag = ec_was_culture_head
+			ec_refresh_culturalist_modifiers_effect = yes
+			if = {
+				limit = { is_ai = no }
+				trigger_event = ec_events.1301
+			}
+		}
+		else_if = {
+			limit = {
+				ec_is_culture_head = no
+				has_character_flag = ec_was_culture_head
+			}
+			remove_character_flag = ec_was_culture_head
+			ec_refresh_culturalist_modifiers_effect = yes
+			if = {
+				limit = { is_ai = no }
+				trigger_event = ec_events.1302
+			}
+		}
+		else = {
+			# Sync flag + package without spam
+			if = {
+				limit = { ec_is_culture_head = yes }
+				add_character_flag = ec_was_culture_head
+			}
+			else = {
+				remove_character_flag = ec_was_culture_head
+			}
+			ec_refresh_culturalist_modifiers_effect = yes
+		}
+	}
+}
+
+### Inspire acceptance — Mid = medium gain per distinct culture among sub-realm counties (capped)
+ec_inspire_acceptance_effect = {
+	# this = culturalist (must be landed for sub-realm counties)
+	if = {
+		limit = {
+			has_trait = ec_exalted_culturalist
+			exists = culture
+			is_landed = yes
+			has_game_rule = ec_rule_acceptance_pulse_on
+		}
+		save_scope_as = ec_inspire_actor
+		culture = { save_scope_as = ec_inspire_culture }
+		every_sub_realm_county = {
+			limit = {
+				exists = culture
+				NOT = { culture = scope:ec_inspire_culture }
+			}
+			culture = {
+				if = {
+					limit = {
+						NOT = { is_in_list = ec_inspire_cultures }
+						list_size = {
+							name = ec_inspire_cultures
+							value < 8
+						}
+					}
+					add_to_list = ec_inspire_cultures
+				}
+			}
+		}
+		every_in_list = {
+			list = ec_inspire_cultures
+			scope:ec_inspire_culture = {
+				change_cultural_acceptance = {
+					target = prev
+					value = medium_cultural_acceptance_gain
+					desc = ec_inspire_acceptance_desc
+				}
+			}
+		}
+		scope:ec_inspire_actor = {
+			add_character_flag = {
+				flag = ec_inspire_acceptance_cooldown
+				years = 1
+			}
+		}
+	}
+}
+
+### Tiny yearly drip (optional) — one random neighboring culture, miniscule
+ec_yearly_acceptance_drip_effect = {
+	if = {
+		limit = {
+			has_trait = ec_exalted_culturalist
+			ec_full_culture_package_active = yes
+			has_game_rule = ec_rule_acceptance_pulse_on
+			exists = culture
+			is_landed = yes
+		}
+		save_scope_as = ec_drip_actor
+		culture = { save_scope_as = ec_drip_culture }
+		random_sub_realm_county = {
+			limit = {
+				exists = culture
+				NOT = { culture = scope:ec_drip_culture }
+			}
+			culture = { save_scope_as = ec_drip_target }
+		}
+		if = {
+			limit = { exists = scope:ec_drip_target }
+			scope:ec_drip_culture = {
+				change_cultural_acceptance = {
+					target = scope:ec_drip_target
+					value = miniscule_cultural_acceptance_gain
+					desc = ec_yearly_acceptance_drip_desc
+				}
+			}
+		}
+	}
+}
+
+### Strip / revoke / bestow
+ec_strip_exalted_culturalist_effect = {
+	if = {
+		limit = { has_trait = ec_exalted_culturalist }
+		if = {
+			limit = {
+				exists = var:ec_patron
+				var:ec_patron = { is_alive = yes }
+			}
+			var:ec_patron = {
+				save_scope_as = ec_notify_patron
+			}
+		}
+		save_scope_as = ec_former_culturalist
+		if = {
+			limit = {
+				exists = scope:ec_notify_patron
+				scope:ec_notify_patron = { is_ai = no }
+			}
+			scope:ec_notify_patron = {
+				trigger_event = ec_events.1201
+			}
+		}
+		if = {
+			limit = { is_ai = no }
+			trigger_event = ec_events.1202
+		}
+		ec_clear_culturalist_modifiers_effect = yes
+		remove_trait = ec_exalted_culturalist
+		remove_variable = ec_patron
+		remove_character_flag = ec_is_exalted
+		remove_character_flag = ec_was_culture_head
+		remove_character_flag = ec_inspire_acceptance_cooldown
+	}
+}
+
+ec_evaluate_strip_exalted_culturalist_effect = {
+	if = {
+		limit = {
+			has_trait = ec_exalted_culturalist
+			has_game_rule = ec_rule_mutual_exclusion_block_with_sovereign
+			ec_character_is_supreme_sovereign = yes
+		}
+		ec_strip_exalted_culturalist_effect = yes
+	}
+	else_if = {
+		limit = { ec_should_strip_exalted_culturalist = yes }
+		ec_strip_exalted_culturalist_effect = yes
+	}
+}
+
+ec_bestow_exalted_culturalist_effect = {
+	if = {
+		limit = {
+			is_alive = yes
+			NOT = { has_trait = ec_exalted_culturalist }
+		}
+		save_scope_as = ec_new_culturalist
+		add_trait = ec_exalted_culturalist
+		if = {
+			limit = { exists = scope:ec_patron }
+			set_variable = {
+				name = ec_patron
+				value = scope:ec_patron
+			}
+		}
+		else_if = {
+			limit = { exists = scope:actor }
+			set_variable = {
+				name = ec_patron
+				value = scope:actor
+			}
+			scope:actor = { save_scope_as = ec_patron }
+		}
+		add_character_flag = ec_is_exalted
+		if = {
+			limit = { ec_is_culture_head = yes }
+			add_character_flag = ec_was_culture_head
+		}
+		if = {
+			limit = {
+				exists = var:ec_patron
+				var:ec_patron = { is_alive = yes }
+			}
+			var:ec_patron = {
+				ec_ensure_culturalist_defaults_effect = yes
+			}
+		}
+		ec_refresh_culturalist_modifiers_effect = yes
+		# Notify granter
+		if = {
+			limit = {
+				exists = var:ec_patron
+				var:ec_patron = { is_alive = yes is_ai = no }
+			}
+			var:ec_patron = {
+				trigger_event = ec_events.1001
+			}
+		}
+		# Notify recipient (if player and not same as patron)
+		if = {
+			limit = {
+				is_ai = no
+				trigger_if = {
+					limit = { exists = var:ec_patron }
+					this != var:ec_patron
+				}
+			}
+			trigger_event = ec_events.1002
+		}
+	}
+}
+
+ec_revoke_exalted_culturalist_effect = {
+	if = {
+		limit = { has_trait = ec_exalted_culturalist }
+		if = {
+			limit = {
+				exists = var:ec_patron
+				var:ec_patron = { is_alive = yes }
+			}
+			var:ec_patron = {
+				save_scope_as = ec_notify_patron
+			}
+		}
+		save_scope_as = ec_former_culturalist
+		ec_clear_culturalist_modifiers_effect = yes
+		if = {
+			limit = {
+				exists = scope:ec_notify_patron
+				scope:ec_notify_patron = { is_ai = no }
+			}
+			scope:ec_notify_patron = {
+				trigger_event = ec_events.1101
+			}
+		}
+		remove_trait = ec_exalted_culturalist
+		remove_variable = ec_patron
+		remove_character_flag = ec_is_exalted
+		remove_character_flag = ec_was_culture_head
+		remove_character_flag = ec_inspire_acceptance_cooldown
+	}
+}
+
+# Patron died: rebind to player_heir / primary_heir when realm continuity holds; else strip
+ec_on_patron_death_effect = {
+	# this = dying patron
+	save_scope_as = ec_dying_patron
+	if = {
+		limit = {
+			exists = player_heir
+			player_heir = { is_alive = yes }
+		}
+		player_heir = { save_scope_as = ec_heir_patron }
+	}
+	else_if = {
+		limit = {
+			exists = primary_heir
+			primary_heir = { is_alive = yes }
+		}
+		primary_heir = { save_scope_as = ec_heir_patron }
+	}
+	every_living_character = {
+		limit = {
+			has_trait = ec_exalted_culturalist
+			exists = var:ec_patron
+			var:ec_patron = scope:ec_dying_patron
+		}
+		if = {
+			limit = {
+				exists = scope:ec_heir_patron
+			}
+			set_variable = {
+				name = ec_patron
+				value = scope:ec_heir_patron
+			}
+			if = {
+				limit = { ec_in_patron_realm = yes }
+				scope:ec_heir_patron = {
+					ec_ensure_culturalist_defaults_effect = yes
+				}
+				ec_refresh_culturalist_modifiers_effect = yes
+			}
+			else = {
+				set_variable = {
+					name = ec_patron
+					value = scope:ec_dying_patron
+				}
+				ec_strip_exalted_culturalist_effect = yes
+			}
+		}
+		else = {
+			ec_strip_exalted_culturalist_effect = yes
+		}
+	}
+	if = {
+		limit = {
+			exists = scope:ec_heir_patron
+			scope:ec_heir_patron = { is_alive = yes }
+		}
+		scope:ec_heir_patron = {
+			ec_ensure_culturalist_defaults_effect = yes
+		}
+	}
+}
+
+ec_on_holder_death_cleanup_effect = {
+	if = {
+		limit = { has_trait = ec_exalted_culturalist }
+		ec_clear_culturalist_modifiers_effect = yes
+		remove_variable = ec_patron
+		remove_character_flag = ec_is_exalted
+		remove_character_flag = ec_was_culture_head
+		remove_character_flag = ec_inspire_acceptance_cooldown
+	}
+}

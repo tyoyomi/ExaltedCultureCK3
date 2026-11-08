@@ -1,0 +1,64 @@
+# Exalted Culture — tunable script values (@ tiers also mirrored in trait/modifiers)
+
+@ec_learning_base = 30
+@ec_other_skill = 10
+@ec_monthly_prestige = 2
+
+@ec_fasc_add_low = 10
+@ec_fasc_mult_low = 0.25
+@ec_innov_chance_low = 5
+
+@ec_fasc_add_mid = 25
+@ec_fasc_mult_mid = 0.75
+@ec_innov_chance_mid = 15
+
+@ec_fasc_add_high = 50
+@ec_fasc_mult_high = 1.5
+@ec_innov_chance_high = 30
+
+@ec_accept_mult_low = 0.25
+@ec_accept_mult_mid = 0.75
+@ec_accept_mult_high = 1.5
+
+@ec_tradition_slots_mid = 1
+@ec_tradition_slots_high = 2
+
+# Tradition cost/cooldown multipliers when full-package culture head (Low mild fill-in)
+@ec_tradition_cost_mult_low = 0.75
+@ec_tradition_cost_mult_mid = 0.5
+@ec_tradition_cost_mult_high = 0.25
+
+# Inspire Acceptance: max distinct cultures pulsed per click
+@ec_inspire_acceptance_target_cap = 8
+
+ec_max_culturalists_value = {
+	value = 1
+	if = {
+		limit = { has_game_rule = ec_rule_max_culturalists_1 }
+		value = 1
+	}
+	else_if = {
+		limit = { has_game_rule = ec_rule_max_culturalists_3 }
+		value = 3
+	}
+	else_if = {
+		limit = { has_game_rule = ec_rule_max_culturalists_5 }
+		value = 5
+	}
+	else_if = {
+		limit = { has_game_rule = ec_rule_max_culturalists_unlimited }
+		value = 9999
+	}
+}
+
+ec_exalted_culturalist_count_for_patron_value = {
+	value = 0
+	every_living_character = {
+		limit = {
+			has_trait = ec_exalted_culturalist
+			exists = var:ec_patron
+			var:ec_patron = root
+		}
+		add = 1
+	}
+}

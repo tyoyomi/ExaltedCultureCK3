@@ -1,0 +1,140 @@
+ec_rule_granting = {
+	categories = {
+		tweaks
+		ai
+	}
+
+	default = ec_rule_granting_player_only
+
+	ec_rule_granting_player_only = {
+	}
+
+	ec_rule_granting_player_and_ai = {
+		flag = blocks_achievements
+	}
+
+	ec_rule_granting_disabled = {
+	}
+}
+
+ec_rule_max_culturalists = {
+	categories = {
+		tweaks
+	}
+
+	default = ec_rule_max_culturalists_1
+
+	ec_rule_max_culturalists_1 = {
+	}
+
+	ec_rule_max_culturalists_3 = {
+	}
+
+	ec_rule_max_culturalists_5 = {
+	}
+
+	ec_rule_max_culturalists_unlimited = {
+		flag = blocks_achievements
+	}
+}
+
+ec_rule_strip_on_leave = {
+	categories = {
+		tweaks
+	}
+
+	default = ec_rule_strip_on_leave_on
+
+	ec_rule_strip_on_leave_on = {
+	}
+
+	ec_rule_strip_on_leave_off = {
+	}
+}
+
+ec_rule_require_culture_head = {
+	categories = {
+		tweaks
+	}
+
+	default = ec_rule_require_culture_head_prefer_head
+
+	ec_rule_require_culture_head_prefer_head = {
+	}
+
+	ec_rule_require_culture_head_head_only = {
+	}
+}
+
+ec_rule_mutual_exclusion = {
+	categories = {
+		tweaks
+	}
+
+	default = ec_rule_mutual_exclusion_allow_both
+
+	ec_rule_mutual_exclusion_block_with_sovereign = {
+	}
+
+	ec_rule_mutual_exclusion_allow_both = {
+	}
+}
+
+ec_rule_self_grant = {
+	categories = {
+		tweaks
+	}
+
+	default = ec_rule_self_grant_yes
+
+	ec_rule_self_grant_yes = {
+	}
+
+	ec_rule_self_grant_no = {
+	}
+}
+
+ec_rule_intensity = {
+	categories = {
+		tweaks
+	}
+
+	default = ec_rule_intensity_mid
+
+	ec_rule_intensity_low = {
+	}
+
+	ec_rule_intensity_mid = {
+	}
+
+	ec_rule_intensity_high = {
+	}
+}
+
+ec_rule_acceptance_pulse = {
+	categories = {
+		tweaks
+	}
+
+	default = ec_rule_acceptance_pulse_on
+
+	ec_rule_acceptance_pulse_on = {
+	}
+
+	ec_rule_acceptance_pulse_off = {
+	}
+}
+
+ec_rule_hybrid_assist = {
+	categories = {
+		tweaks
+	}
+
+	default = ec_rule_hybrid_assist_acceptance_only
+
+	ec_rule_hybrid_assist_acceptance_only = {
+	}
+
+	ec_rule_hybrid_assist_acceptance_and_threshold = {
+	}
+}

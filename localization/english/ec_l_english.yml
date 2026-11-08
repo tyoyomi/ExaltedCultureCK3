@@ -1,0 +1,194 @@
+﻿l_english:
+ # Trait
+ trait_ec_exalted_culturalist:0 "Exalted Culturalist"
+ trait_ec_exalted_culturalist_desc:0 "Appointed to exalt their culture — innovations race, traditions slot in faster, and neighbors accept them. Full power requires being culture head. Clearly beneath a Supreme Sovereign's fascination scale."
+
+ # Interactions
+ ec_bestow_exalted_culturalist_interaction:0 "Bestow Exalted Culturalist"
+ ec_bestow_exalted_culturalist_interaction_desc:0 "Elevate [recipient.GetShortUIName] as an Exalted Culturalist. Full innovations, traditions, and acceptance power applies while they are culture head of their culture. The honor lasts while they remain bound to your realm."
+ ec_bestow_exalted_culturalist_interaction_extra_icon:0 "$ec_bestow_exalted_culturalist_interaction$"
+
+ ec_revoke_exalted_culturalist_interaction:0 "Revoke Exalted Culturalist"
+ ec_revoke_exalted_culturalist_interaction_desc:0 "Strip [recipient.GetShortUIName] of the Exalted Culturalist honor. They keep their life and station, but not this cultural favor."
+
+ # Decisions
+ ec_manage_exalted_culture_decision:0 "Manage Exalted Culture"
+ ec_manage_exalted_culture_decision_desc:0 "Review your Exalted Culturalists and the intensity tiers that empower them — fascinations (innovations), traditions, acceptance, and hybrid assist. Bestow and revoke are character interactions; this opens the settings hub."
+ ec_manage_exalted_culture_decision_tooltip:0 "Open the Exalted Culture hub: holders, headship, and live intensity tiers"
+ ec_manage_exalted_culture_decision_confirm:0 "Open Hub"
+ ec_manage_exalted_culture_decision_effect_tt:0 "Opens the Exalted Culture manage hub"
+
+ ec_inspire_acceptance_decision:0 "Inspire Cultural Acceptance"
+ ec_inspire_acceptance_decision_desc:0 "Spend a year of cultural momentum to raise acceptance between your culture and foreign cultures present in your realm. Works best as culture head."
+ ec_inspire_acceptance_decision_tooltip:0 "Pulse medium acceptance toward foreign cultures in your sub-realm (yearly cooldown)"
+ ec_inspire_acceptance_decision_confirm:0 "Inspire Acceptance"
+ ec_inspire_acceptance_decision_effect_tt:0 "Raises cultural acceptance with foreign cultures in your realm"
+
+ # Modifiers
+ ec_fascination_low_modifier:0 "Exalted Culture — Fascination (Low)"
+ ec_fascination_low_modifier_desc:0 "Mild cultural-head fascination and innovation progress while culture head."
+ ec_fascination_mid_modifier:0 "Exalted Culture — Fascination (Mid)"
+ ec_fascination_mid_modifier_desc:0 "Strong cultural-head fascination and innovation progress while culture head."
+ ec_fascination_high_modifier:0 "Exalted Culture — Fascination (High)"
+ ec_fascination_high_modifier_desc:0 "Great cultural-head fascination and innovation progress while culture head — still far below Sovereign scale."
+
+ ec_acceptance_low_modifier:0 "Exalted Culture — Acceptance (Low)"
+ ec_acceptance_low_modifier_desc:0 "Mild cultural-head acceptance gain multiplier."
+ ec_acceptance_mid_modifier:0 "Exalted Culture — Acceptance (Mid)"
+ ec_acceptance_mid_modifier_desc:0 "Strong cultural-head acceptance gain multiplier."
+ ec_acceptance_high_modifier:0 "Exalted Culture — Acceptance (High)"
+ ec_acceptance_high_modifier_desc:0 "Great cultural-head acceptance gain multiplier."
+
+ ec_tradition_slots_mid_modifier:0 "Exalted Culture — Tradition Slots (Mid)"
+ ec_tradition_slots_mid_modifier_desc:0 "One extra tradition slot while culture head."
+ ec_tradition_slots_high_modifier:0 "Exalted Culture — Tradition Slots (High)"
+ ec_tradition_slots_high_modifier_desc:0 "Two extra tradition slots while culture head."
+
+ # Acceptance descs
+ ec_inspire_acceptance_desc:0 "Inspired cultural acceptance"
+ ec_yearly_acceptance_drip_desc:0 "Exalted cultural momentum"
+
+ # Tooltips
+ ec_tt_under_culturalist_cap:0 "You are under your Exalted Culturalist cap"
+ ec_tt_blocks_with_sovereign:0 "Cannot stack with Supreme Sovereign"
+ ec_tt_must_be_culture_head:0 "Recipient must be culture head"
+ ec_tt_actor_may_bestow:0 "You may bestow Exalted Culturalist"
+ ec_tt_can_receive_exalted_culturalist:0 "Target may receive Exalted Culturalist"
+ ec_tt_is_your_exalted_culturalist:0 "This is your Exalted Culturalist"
+ ec_tt_inspire_acceptance_ready:0 "Landed, off cooldown, and ready to inspire acceptance"
+
+ # Game rules
+ rule_ec_rule_granting:0 "Exalted Culture: Who May Bestow"
+ setting_ec_rule_granting_player_only:0 "Player Only"
+ setting_ec_rule_granting_player_only_desc:0 "Only human players may bestow the Exalted Culturalist honor."
+ setting_ec_rule_granting_player_and_ai:0 "#high Player and AI#!"
+ setting_ec_rule_granting_player_and_ai_desc:0 "Players and AI rulers may bestow the honor. AI prefers culture heads and learned courtiers."
+ setting_ec_rule_granting_disabled:0 "Disabled"
+ setting_ec_rule_granting_disabled_desc:0 "Bestowing is disabled. Existing holders are unaffected until revoked or stripped."
+
+ rule_ec_rule_max_culturalists:0 "Exalted Culture: Maximum per Patron"
+ setting_ec_rule_max_culturalists_1:0 "1"
+ setting_ec_rule_max_culturalists_1_desc:0 "Each patron may have at most one Exalted Culturalist at a time."
+ setting_ec_rule_max_culturalists_3:0 "3"
+ setting_ec_rule_max_culturalists_3_desc:0 "Each patron may have up to three Exalted Culturalists at a time."
+ setting_ec_rule_max_culturalists_5:0 "5"
+ setting_ec_rule_max_culturalists_5_desc:0 "Each patron may have up to five Exalted Culturalists at a time."
+ setting_ec_rule_max_culturalists_unlimited:0 "#high Unlimited#!"
+ setting_ec_rule_max_culturalists_unlimited_desc:0 "No cap on concurrent Exalted Culturalists per patron."
+
+ rule_ec_rule_strip_on_leave:0 "Exalted Culture: Strip on Leaving Realm"
+ setting_ec_rule_strip_on_leave_on:0 "On"
+ setting_ec_rule_strip_on_leave_on_desc:0 "Exalted Culturalist status is removed when the holder leaves the patron's realm."
+ setting_ec_rule_strip_on_leave_off:0 "Off"
+ setting_ec_rule_strip_on_leave_off_desc:0 "Leaving the realm does not auto-strip the honor. Manual revoke still works."
+
+ rule_ec_rule_require_culture_head:0 "Exalted Culture: Culture Head Requirement"
+ setting_ec_rule_require_culture_head_prefer_head:0 "Prefer Head"
+ setting_ec_rule_require_culture_head_prefer_head_desc:0 "You may bestow on non-heads. Non-heads keep Learning and pulse eligibility but get no cultural-head fascination, acceptance mult, tradition discounts, or extra slots until they become culture head."
+ setting_ec_rule_require_culture_head_head_only:0 "Head Only"
+ setting_ec_rule_require_culture_head_head_only_desc:0 "Bestow is blocked unless the recipient is currently culture head."
+
+ rule_ec_rule_mutual_exclusion:0 "Exalted Culture: Supreme Sovereign Exclusion"
+ setting_ec_rule_mutual_exclusion_block_with_sovereign:0 "Block with Supreme Sovereign"
+ setting_ec_rule_mutual_exclusion_block_with_sovereign_desc:0 "Characters with Supreme Sovereign cannot receive Exalted Culturalist. Gaining Sovereign later strips Culturalist. Stacking fascination with Sovereign is extreme."
+ setting_ec_rule_mutual_exclusion_allow_both:0 "Allow Both"
+ setting_ec_rule_mutual_exclusion_allow_both_desc:0 "Exalted Culturalist and Supreme Sovereign may stack. Hub warns that fascination stacking with Sovereign is absurd."
+
+ rule_ec_rule_self_grant:0 "Exalted Culture: Self Grant"
+ setting_ec_rule_self_grant_yes:0 "Yes"
+ setting_ec_rule_self_grant_yes_desc:0 "You may bestow Exalted Culturalist on yourself (typical for culture-head play)."
+ setting_ec_rule_self_grant_no:0 "No"
+ setting_ec_rule_self_grant_no_desc:0 "You cannot bestow Exalted Culturalist on yourself via interaction. Ruler Designer can still apply the trait."
+
+ rule_ec_rule_intensity:0 "Exalted Culture: Starting Intensity"
+ setting_ec_rule_intensity_low:0 "Low"
+ setting_ec_rule_intensity_low_desc:0 "New patrons start with Low fascination / tradition / acceptance / hybrid tiers. Hub can still cycle mid-campaign."
+ setting_ec_rule_intensity_mid:0 "Mid"
+ setting_ec_rule_intensity_mid_desc:0 "New patrons start with Mid tiers (design default). Hub can still cycle mid-campaign."
+ setting_ec_rule_intensity_high:0 "High"
+ setting_ec_rule_intensity_high_desc:0 "New patrons start with High tiers. Hub can still cycle mid-campaign."
+
+ rule_ec_rule_acceptance_pulse:0 "Exalted Culture: Acceptance Pulse"
+ setting_ec_rule_acceptance_pulse_on:0 "On"
+ setting_ec_rule_acceptance_pulse_on_desc:0 "Enables Inspire Cultural Acceptance and a tiny yearly acceptance drip for culture-head holders."
+ setting_ec_rule_acceptance_pulse_off:0 "Off"
+ setting_ec_rule_acceptance_pulse_off_desc:0 "Disables inspire decision and yearly drip. Passive cultural-head acceptance mult still applies."
+
+ rule_ec_rule_hybrid_assist:0 "Exalted Culture: Hybrid Assist"
+ setting_ec_rule_hybrid_assist_acceptance_only:0 "Acceptance Only"
+ setting_ec_rule_hybrid_assist_acceptance_only_desc:0 "Help hybridization by raising acceptance. Does not lower the hybridization threshold. Pair with vanilla Faster Hybrid & Divergence Cooldowns if you want age gates reduced."
+ setting_ec_rule_hybrid_assist_acceptance_and_threshold:0 "Acceptance and Threshold"
+ setting_ec_rule_hybrid_assist_acceptance_and_threshold_desc:0 "Also halves the hybridization threshold (~40→~20) when an Exalted Culturalist culture head has Mid or High hybrid tier. Soft-enhances Royal Court hybridize/diverge; not a hard DLC requirement for core play."
+
+ # Notify events
+ ec_events.1001.t:0 "An Exalted Culturalist Appointed"
+ ec_events.1001.desc:0 "You have elevated a trusted figure as Exalted Culturalist. Their culture's innovations and traditions will surge while they remain culture head — and bound to your realm."
+ ec_events.1001.a:0 "Let the culture flourish."
+
+ ec_events.1002.t:0 "Exalted Culturalist"
+ ec_events.1002.desc:0 "Your patron has named you Exalted Culturalist. Guide your culture's fascinations and traditions — full power unlocks when you are culture head."
+ ec_events.1002.a:0 "I will exalt our people."
+
+ ec_events.1101.t:0 "Exalted Culturalist Revoked"
+ ec_events.1101.desc:0 "You have deliberately stripped the Exalted Culturalist honor from one of your people."
+ ec_events.1101.a:0 "So be it."
+
+ ec_events.1201.t:0 "Cultural Favor Lapsed"
+ ec_events.1201.desc:0 "An Exalted Culturalist left your realm. Their cultural favor has ended."
+ ec_events.1201.a:0 "A pity."
+
+ ec_events.1202.t:0 "Exaltation Ended"
+ ec_events.1202.desc:0 "Having left your patron's realm, you are no longer Exalted Culturalist."
+ ec_events.1202.a:0 "The mosaic fades."
+
+ ec_events.1301.t:0 "Culture Head — Full Package"
+ ec_events.1301.desc:0 "You are now culture head. Your Exalted Culturalist honor unlocks full fascination, tradition, and acceptance power."
+ ec_events.1301.a:0 "The culture answers."
+
+ ec_events.1302.t:0 "No Longer Culture Head"
+ ec_events.1302.desc:0 "You are no longer culture head. Your Exalted Culturalist package is reduced — Learning remains, but cultural-head fascinations and tradition discounts sleep until you reclaim headship."
+ ec_events.1302.a:0 "For now."
+
+ # Settings hub
+ ec_settings.1001.t:0 "Exalted Culture"
+ ec_settings.1001.desc_intro:0 "Your Exalted Culturalists and the intensity tiers that empower them. Full fantasy needs culture head. Cycle a setting to change it; the board refreshes after each click. Bestow and revoke stay on character interactions.\n\nStacking with Supreme Sovereign makes fascination absurd — allowed by default; use the exclusion game rule if you prefer a hard block."
+ ec_settings.1001.desc_blank:0 "\n"
+ ec_settings.1001.desc_holders_head:0 "Holders under you: at least one Exalted Culturalist is culture head (full package active)."
+ ec_settings.1001.desc_holders_reduced:0 "Holders under you: Exalted Culturalist(s) bound, but none currently culture head (reduced package — Learning only until headship)."
+ ec_settings.1001.desc_holders_none:0 "Holders under you: none. Use Bestow Exalted Culturalist on a character (ideally a culture head)."
+ ec_settings.1001.desc_footer:0 "Accelerates innovations (fascinations), tradition adoption, acceptance, and hybrid/diverge reachability. Soft-recommends Royal Court for hybridize/diverge UI. Pair with vanilla Faster Hybrid & Divergence Cooldowns for age gates. Conflicts possible with other mods that override tradition cost/cooldown script values."
+ ec_settings.1001.close:0 "Done"
+
+ ec_settings.tt.fascination:0 "Fascination / innovations — cultural-head fascination add & mult, plus innovation progress chance from fascination.\n\nLow: +10 add / +25% mult / +5 chance.\nMid: +25 / +75% / +15.\nHigh: +50 / +150% / +30.\n\nOnly while culture head. Click to cycle. Current tier is on the button."
+ ec_settings.tt.tradition:0 "Traditions — prestige cost & add-tradition cooldown (script value), plus extra tradition slots.\n\nLow: ×0.75 cost/cooldown, +0 slots.\nMid: ×0.5, +1 slot.\nHigh: ×0.25, +2 slots.\n\nOnly while culture head. Click to cycle."
+ ec_settings.tt.acceptance:0 "Acceptance — cultural-head acceptance gain multiplier, plus inspire/yearly drip when the pulse rule is on.\n\nLow / Mid / High scale the mult (0.25 / 0.75 / 1.5).\n\nOnly while culture head for the mult. Click to cycle."
+ ec_settings.tt.hybrid:0 "Hybrid assist — Mid/High enable threshold halving when the Hybrid Assist game rule is Acceptance and Threshold.\n\nLow: threshold assist off.\nMid/High: threshold ~20 when rule allows.\n\nAcceptance path always helped by the Acceptance tier. Click to cycle."
+ ec_settings.tt.close:0 "Close the Exalted Culture hub without changing anything."
+
+ ec_settings.tier.fascination_1:0 "Fascination: Low (1) — +10 / +25% / +5"
+ ec_settings.tier.fascination_2:0 "Fascination: Mid (2) — +25 / +75% / +15"
+ ec_settings.tier.fascination_3:0 "Fascination: High (3) — +50 / +150% / +30"
+ ec_settings.opt.fascination_1:0 "Fascination: Low (1) — cycle"
+ ec_settings.opt.fascination_2:0 "Fascination: Mid (2) — cycle"
+ ec_settings.opt.fascination_3:0 "Fascination: High (3) — cycle"
+
+ ec_settings.tier.tradition_1:0 "Traditions: Low (1) — ×0.75 cost/CD, +0 slots"
+ ec_settings.tier.tradition_2:0 "Traditions: Mid (2) — ×0.5 cost/CD, +1 slot"
+ ec_settings.tier.tradition_3:0 "Traditions: High (3) — ×0.25 cost/CD, +2 slots"
+ ec_settings.opt.tradition_1:0 "Traditions: Low (1) — cycle"
+ ec_settings.opt.tradition_2:0 "Traditions: Mid (2) — cycle"
+ ec_settings.opt.tradition_3:0 "Traditions: High (3) — cycle"
+
+ ec_settings.tier.acceptance_1:0 "Acceptance: Low (1) — ×0.25 gain"
+ ec_settings.tier.acceptance_2:0 "Acceptance: Mid (2) — ×0.75 gain"
+ ec_settings.tier.acceptance_3:0 "Acceptance: High (3) — ×1.5 gain"
+ ec_settings.opt.acceptance_1:0 "Acceptance: Low (1) — cycle"
+ ec_settings.opt.acceptance_2:0 "Acceptance: Mid (2) — cycle"
+ ec_settings.opt.acceptance_3:0 "Acceptance: High (3) — cycle"
+
+ ec_settings.tier.hybrid_1:0 "Hybrid: Low (1) — threshold assist off"
+ ec_settings.tier.hybrid_2:0 "Hybrid: Mid (2) — threshold assist if rule on"
+ ec_settings.tier.hybrid_3:0 "Hybrid: High (3) — threshold assist if rule on"
+ ec_settings.opt.hybrid_1:0 "Hybrid: Low (1) — cycle"
+ ec_settings.opt.hybrid_2:0 "Hybrid: Mid (2) — cycle"
+ ec_settings.opt.hybrid_3:0 "Hybrid: High (3) — cycle"

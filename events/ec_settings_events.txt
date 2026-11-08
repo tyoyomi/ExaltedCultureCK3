@@ -1,0 +1,222 @@
+namespace = ec_settings
+
+# Manage Exalted Culture hub — holders + headship + current tiers + cycle (re-opens after each cycle)
+ec_settings.1001 = {
+	type = character_event
+	title = ec_settings.1001.t
+	theme = culture_change
+
+	desc = {
+		desc = ec_settings.1001.desc_intro
+		desc = ec_settings.1001.desc_blank
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					any_living_character = {
+						count >= 1
+						has_trait = ec_exalted_culturalist
+						exists = var:ec_patron
+						var:ec_patron = root
+						ec_is_culture_head = yes
+					}
+				}
+				desc = ec_settings.1001.desc_holders_head
+			}
+			triggered_desc = {
+				trigger = {
+					any_living_character = {
+						count >= 1
+						has_trait = ec_exalted_culturalist
+						exists = var:ec_patron
+						var:ec_patron = root
+					}
+				}
+				desc = ec_settings.1001.desc_holders_reduced
+			}
+			desc = ec_settings.1001.desc_holders_none
+		}
+		desc = ec_settings.1001.desc_blank
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:ec_cfg_fascination = 1 }
+				desc = ec_settings.tier.fascination_1
+			}
+			triggered_desc = {
+				trigger = { var:ec_cfg_fascination = 2 }
+				desc = ec_settings.tier.fascination_2
+			}
+			triggered_desc = {
+				trigger = { var:ec_cfg_fascination = 3 }
+				desc = ec_settings.tier.fascination_3
+			}
+			desc = ec_settings.tier.fascination_2
+		}
+		desc = ec_settings.1001.desc_blank
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:ec_cfg_tradition = 1 }
+				desc = ec_settings.tier.tradition_1
+			}
+			triggered_desc = {
+				trigger = { var:ec_cfg_tradition = 2 }
+				desc = ec_settings.tier.tradition_2
+			}
+			triggered_desc = {
+				trigger = { var:ec_cfg_tradition = 3 }
+				desc = ec_settings.tier.tradition_3
+			}
+			desc = ec_settings.tier.tradition_2
+		}
+		desc = ec_settings.1001.desc_blank
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:ec_cfg_acceptance = 1 }
+				desc = ec_settings.tier.acceptance_1
+			}
+			triggered_desc = {
+				trigger = { var:ec_cfg_acceptance = 2 }
+				desc = ec_settings.tier.acceptance_2
+			}
+			triggered_desc = {
+				trigger = { var:ec_cfg_acceptance = 3 }
+				desc = ec_settings.tier.acceptance_3
+			}
+			desc = ec_settings.tier.acceptance_2
+		}
+		desc = ec_settings.1001.desc_blank
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:ec_cfg_hybrid = 1 }
+				desc = ec_settings.tier.hybrid_1
+			}
+			triggered_desc = {
+				trigger = { var:ec_cfg_hybrid = 2 }
+				desc = ec_settings.tier.hybrid_2
+			}
+			triggered_desc = {
+				trigger = { var:ec_cfg_hybrid = 3 }
+				desc = ec_settings.tier.hybrid_3
+			}
+			desc = ec_settings.tier.hybrid_2
+		}
+		desc = ec_settings.1001.desc_blank
+		desc = ec_settings.1001.desc_footer
+	}
+
+	immediate = {
+		ec_ensure_culturalist_defaults_effect = yes
+		every_living_character = {
+			limit = {
+				has_trait = ec_exalted_culturalist
+				exists = var:ec_patron
+				var:ec_patron = root
+			}
+			add_to_list = ec_my_culturalists
+		}
+	}
+
+	option = {
+		name = {
+			text = {
+				first_valid = {
+					triggered_desc = {
+						trigger = { var:ec_cfg_fascination = 1 }
+						desc = ec_settings.opt.fascination_1
+					}
+					triggered_desc = {
+						trigger = { var:ec_cfg_fascination = 2 }
+						desc = ec_settings.opt.fascination_2
+					}
+					triggered_desc = {
+						trigger = { var:ec_cfg_fascination = 3 }
+						desc = ec_settings.opt.fascination_3
+					}
+					desc = ec_settings.opt.fascination_2
+				}
+			}
+		}
+		custom_tooltip = ec_settings.tt.fascination
+		ec_cycle_fascination_cfg_effect = yes
+		trigger_event = ec_settings.1001
+	}
+
+	option = {
+		name = {
+			text = {
+				first_valid = {
+					triggered_desc = {
+						trigger = { var:ec_cfg_tradition = 1 }
+						desc = ec_settings.opt.tradition_1
+					}
+					triggered_desc = {
+						trigger = { var:ec_cfg_tradition = 2 }
+						desc = ec_settings.opt.tradition_2
+					}
+					triggered_desc = {
+						trigger = { var:ec_cfg_tradition = 3 }
+						desc = ec_settings.opt.tradition_3
+					}
+					desc = ec_settings.opt.tradition_2
+				}
+			}
+		}
+		custom_tooltip = ec_settings.tt.tradition
+		ec_cycle_tradition_cfg_effect = yes
+		trigger_event = ec_settings.1001
+	}
+
+	option = {
+		name = {
+			text = {
+				first_valid = {
+					triggered_desc = {
+						trigger = { var:ec_cfg_acceptance = 1 }
+						desc = ec_settings.opt.acceptance_1
+					}
+					triggered_desc = {
+						trigger = { var:ec_cfg_acceptance = 2 }
+						desc = ec_settings.opt.acceptance_2
+					}
+					triggered_desc = {
+						trigger = { var:ec_cfg_acceptance = 3 }
+						desc = ec_settings.opt.acceptance_3
+					}
+					desc = ec_settings.opt.acceptance_2
+				}
+			}
+		}
+		custom_tooltip = ec_settings.tt.acceptance
+		ec_cycle_acceptance_cfg_effect = yes
+		trigger_event = ec_settings.1001
+	}
+
+	option = {
+		name = {
+			text = {
+				first_valid = {
+					triggered_desc = {
+						trigger = { var:ec_cfg_hybrid = 1 }
+						desc = ec_settings.opt.hybrid_1
+					}
+					triggered_desc = {
+						trigger = { var:ec_cfg_hybrid = 2 }
+						desc = ec_settings.opt.hybrid_2
+					}
+					triggered_desc = {
+						trigger = { var:ec_cfg_hybrid = 3 }
+						desc = ec_settings.opt.hybrid_3
+					}
+					desc = ec_settings.opt.hybrid_2
+				}
+			}
+		}
+		custom_tooltip = ec_settings.tt.hybrid
+		ec_cycle_hybrid_cfg_effect = yes
+		trigger_event = ec_settings.1001
+	}
+
+	option = {
+		name = ec_settings.1001.close
+		custom_tooltip = ec_settings.tt.close
+	}
+}

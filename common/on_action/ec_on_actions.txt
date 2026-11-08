@@ -1,0 +1,118 @@
+# Exalted Culture — append-only vanilla hooks (never overwrite effect/trigger on vanilla roots)
+
+on_leave_court = {
+	on_actions = { ec_on_leave_court }
+}
+
+ec_on_leave_court = {
+	trigger = {
+		has_trait = ec_exalted_culturalist
+	}
+	effect = {
+		ec_evaluate_strip_exalted_culturalist_effect = yes
+	}
+}
+
+on_join_court = {
+	on_actions = { ec_on_join_court }
+}
+
+ec_on_join_court = {
+	trigger = {
+		has_trait = ec_exalted_culturalist
+	}
+	effect = {
+		ec_evaluate_strip_exalted_culturalist_effect = yes
+		ec_on_culture_head_change_refresh_effect = yes
+	}
+}
+
+on_title_lost = {
+	on_actions = { ec_on_title_change }
+}
+
+on_title_gain = {
+	on_actions = { ec_on_title_change }
+}
+
+ec_on_title_change = {
+	trigger = {
+		OR = {
+			has_trait = ec_exalted_culturalist
+			any_living_character = {
+				has_trait = ec_exalted_culturalist
+				exists = var:ec_patron
+				var:ec_patron = root
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = { has_trait = ec_exalted_culturalist }
+			ec_evaluate_strip_exalted_culturalist_effect = yes
+			ec_on_culture_head_change_refresh_effect = yes
+		}
+		every_living_character = {
+			limit = {
+				has_trait = ec_exalted_culturalist
+				exists = var:ec_patron
+				var:ec_patron = root
+			}
+			ec_evaluate_strip_exalted_culturalist_effect = yes
+			ec_on_culture_head_change_refresh_effect = yes
+		}
+	}
+}
+
+on_character_culture_change = {
+	on_actions = { ec_on_character_culture_change }
+}
+
+ec_on_character_culture_change = {
+	trigger = {
+		has_trait = ec_exalted_culturalist
+	}
+	effect = {
+		ec_on_culture_head_change_refresh_effect = yes
+	}
+}
+
+random_yearly_everyone_pulse = {
+	on_actions = { ec_yearly_culture_check }
+}
+
+ec_yearly_culture_check = {
+	trigger = {
+		has_trait = ec_exalted_culturalist
+	}
+	effect = {
+		ec_evaluate_strip_exalted_culturalist_effect = yes
+		ec_on_culture_head_change_refresh_effect = yes
+		ec_yearly_acceptance_drip_effect = yes
+	}
+}
+
+on_death = {
+	on_actions = { ec_on_death }
+}
+
+ec_on_death = {
+	effect = {
+		# Dying patron: rebind or strip culturalists
+		if = {
+			limit = {
+				any_living_character = {
+					has_trait = ec_exalted_culturalist
+					exists = var:ec_patron
+					var:ec_patron = root
+				}
+			}
+			ec_on_patron_death_effect = yes
+		}
+		# Dying holder cleanup
+		if = {
+			limit = { has_trait = ec_exalted_culturalist }
+			ec_on_holder_death_cleanup_effect = yes
+		}
+	}
+}
