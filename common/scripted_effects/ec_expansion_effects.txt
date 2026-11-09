@@ -49,14 +49,7 @@ ec_master_all_realm_languages_effect = {
 				learn_language_of_culture = scope:ec_own_culture
 			}
 		}
-		if = {
-			limit = {
-				NOT = { has_character_modifier = ec_language_mastery_modifier }
-			}
-			add_character_modifier = {
-				modifier = ec_language_mastery_modifier
-				days = -1
-			}
-		}
+		# Language diplomacy package (court language + guest/courtier opinion via mastery modifier)
+		ec_language_diplomacy_effect = yes
 	}
 }

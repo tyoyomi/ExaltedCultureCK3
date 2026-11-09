@@ -1,4 +1,5 @@
 # Exalted Culture — append-only vanilla hooks (never overwrite effect/trigger on vanilla roots)
+# Next-iter: split title-gain (O(1) self) from title-lost (O(bound) patron walk) — EC25
 
 on_leave_court = {
 	on_actions = { ec_on_leave_court }
@@ -27,15 +28,12 @@ ec_on_join_court = {
 	}
 }
 
+### Title lost — strip + headship for self; bound-list walk when root is a patron
 on_title_lost = {
-	on_actions = { ec_on_title_change }
+	on_actions = { ec_on_title_lost }
 }
 
-on_title_gain = {
-	on_actions = { ec_on_title_change }
-}
-
-ec_on_title_change = {
+ec_on_title_lost = {
 	trigger = {
 		OR = {
 			has_trait = ec_exalted_culturalist
@@ -100,6 +98,21 @@ ec_on_title_change = {
 				ec_on_culture_head_change_refresh_effect = yes
 			}
 		}
+	}
+}
+
+### Title gain — O(1) self only; never walk bound list (EC25 / EC27)
+on_title_gain = {
+	on_actions = { ec_on_title_gain }
+}
+
+ec_on_title_gain = {
+	trigger = {
+		has_trait = ec_exalted_culturalist
+	}
+	effect = {
+		ec_evaluate_strip_exalted_culturalist_effect = yes
+		ec_on_culture_head_change_refresh_effect = yes
 	}
 }
 

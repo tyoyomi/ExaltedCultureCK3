@@ -83,3 +83,59 @@ ec_events.1302 = {
 		name = ec_events.1302.a
 	}
 }
+
+# Next-iter toasts — paint / undo / express
+ec_events.1401 = {
+	type = character_event
+	title = ec_events.1401.t
+	desc = ec_events.1401.desc
+	theme = culture_change
+
+	option = {
+		name = ec_events.1401.a
+	}
+}
+
+ec_events.1402 = {
+	type = character_event
+	title = ec_events.1402.t
+	desc = ec_events.1402.desc
+	theme = culture_change
+
+	option = {
+		name = ec_events.1402.a
+	}
+}
+
+ec_events.1411 = {
+	type = character_event
+	title = ec_events.1411.t
+	desc = ec_events.1411.desc
+	theme = culture_change
+
+	option = {
+		name = ec_events.1411.a
+	}
+}
+
+ec_events.1412 = {
+	type = character_event
+	title = ec_events.1412.t
+	desc = ec_events.1412.desc
+	theme = culture_change
+
+	option = {
+		name = ec_events.1412.a
+	}
+}
+
+ec_events.1413 = {
+	type = character_event
+	title = ec_events.1413.t
+	desc = ec_events.1413.desc
+	theme = culture_change
+
+	option = {
+		name = ec_events.1413.a
+	}
+}
