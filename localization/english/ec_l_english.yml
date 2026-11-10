@@ -1,7 +1,7 @@
-﻿l_english:
+﻿ï»¿l_english:
  # Trait
  trait_ec_exalted_culturalist:0 "Exalted Culturalist"
- trait_ec_exalted_culturalist_desc:0 "Appointed to exalt their culture — innovations race, traditions slot in faster, and neighbors accept them. Full power requires being culture head. Clearly beneath a Supreme Sovereign's fascination scale."
+ trait_ec_exalted_culturalist_desc:0 "Appointed to exalt their culture â€” innovations race, traditions slot in faster, and neighbors accept them. Full power requires being culture head. Clearly beneath a Supreme Sovereign's fascination scale."
 
  # Interactions
  ec_bestow_exalted_culturalist_interaction:0 "Bestow Exalted Culturalist"
@@ -13,10 +13,29 @@
 
  # Decisions
  ec_manage_exalted_culture_decision:0 "Manage Exalted Culture"
- ec_manage_exalted_culture_decision_desc:0 "Review your Exalted Culturalists and the intensity tiers that empower them — fascinations (innovations), traditions, acceptance, and hybrid assist. Bestow and revoke are character interactions; this opens the settings hub."
+ ec_manage_exalted_culture_decision_desc:0 "Review your Exalted Culturalists and the intensity tiers that empower them â€” fascinations (innovations), traditions, acceptance, and hybrid assist. Bestow and revoke are character interactions; this opens the settings hub."
  ec_manage_exalted_culture_decision_tooltip:0 "Open the Exalted Culture hub: holders, headship, and live intensity tiers"
  ec_manage_exalted_culture_decision_confirm:0 "Open Hub"
  ec_manage_exalted_culture_decision_effect_tt:0 "Opens the Exalted Culture manage hub"
+
+ # Decision group
+ decision_group_type_ec_exalted:0 "Exalted Culture"
+
+ # Actions hub
+ ec_exalted_actions_decision:0 "Exalted Culture: Actions"
+ ec_exalted_actions_decision_desc:0 "Open Culture Actions: inspire, convert, languages, paint, undo, or hybrid/diverge express.\n\nDone is always first. Actions on cooldown or gated stay hidden until ready."
+ ec_exalted_actions_decision_tooltip:0 "Open Culture Actions for convert, paint, acceptance, languages, and express verbs"
+ ec_exalted_actions_decision_confirm:0 "Open Actions"
+ ec_exalted_actions_decision_effect_tt:0 "Opens the Exalted Culture Actions hub"
+
+ ec_actions.1001.t:0 "Culture Actions"
+ ec_actions.1001.desc:0 "Choose a Culture action. Done closes the hub. Gated or on-cooldown actions stay hidden until ready."
+ ec_actions.1001.close:0 "Done"
+ ec_actions.1001.inspire:0 "Inspire Cultural Acceptance"
+ ec_actions.1001.convert:0 "Instant Cultural Conversion"
+ ec_actions.1001.languages:0 "Master Realm Languages"
+ ec_actions.tt.close:0 "Close Culture Actions without taking an action."
+ ec_tt_actions_convert_cd_ready:0 "Instant conversion is off cooldown"
 
  ec_inspire_acceptance_decision:0 "Inspire Cultural Acceptance"
  ec_inspire_acceptance_decision_desc:0 "Spend a year of cultural momentum to raise acceptance between your culture and foreign cultures present in your realm. Works best as culture head."
@@ -25,23 +44,23 @@
  ec_inspire_acceptance_decision_effect_tt:0 "Raises cultural acceptance with foreign cultures in your realm"
 
  # Modifiers
- ec_fascination_low_modifier:0 "Exalted Culture — Fascination (Low)"
+ ec_fascination_low_modifier:0 "Exalted Culture â€” Fascination (Low)"
  ec_fascination_low_modifier_desc:0 "Mild cultural-head fascination and innovation progress while culture head."
- ec_fascination_mid_modifier:0 "Exalted Culture — Fascination (Mid)"
+ ec_fascination_mid_modifier:0 "Exalted Culture â€” Fascination (Mid)"
  ec_fascination_mid_modifier_desc:0 "Strong cultural-head fascination and innovation progress while culture head."
- ec_fascination_high_modifier:0 "Exalted Culture — Fascination (High)"
- ec_fascination_high_modifier_desc:0 "Great cultural-head fascination and innovation progress while culture head — still far below Sovereign scale."
+ ec_fascination_high_modifier:0 "Exalted Culture â€” Fascination (High)"
+ ec_fascination_high_modifier_desc:0 "Great cultural-head fascination and innovation progress while culture head â€” still far below Sovereign scale."
 
- ec_acceptance_low_modifier:0 "Exalted Culture — Acceptance (Low)"
+ ec_acceptance_low_modifier:0 "Exalted Culture â€” Acceptance (Low)"
  ec_acceptance_low_modifier_desc:0 "Mild cultural-head acceptance gain multiplier."
- ec_acceptance_mid_modifier:0 "Exalted Culture — Acceptance (Mid)"
+ ec_acceptance_mid_modifier:0 "Exalted Culture â€” Acceptance (Mid)"
  ec_acceptance_mid_modifier_desc:0 "Strong cultural-head acceptance gain multiplier."
- ec_acceptance_high_modifier:0 "Exalted Culture — Acceptance (High)"
+ ec_acceptance_high_modifier:0 "Exalted Culture â€” Acceptance (High)"
  ec_acceptance_high_modifier_desc:0 "Great cultural-head acceptance gain multiplier."
 
- ec_tradition_slots_mid_modifier:0 "Exalted Culture — Tradition Slots (Mid)"
+ ec_tradition_slots_mid_modifier:0 "Exalted Culture â€” Tradition Slots (Mid)"
  ec_tradition_slots_mid_modifier_desc:0 "One extra tradition slot while culture head."
- ec_tradition_slots_high_modifier:0 "Exalted Culture — Tradition Slots (High)"
+ ec_tradition_slots_high_modifier:0 "Exalted Culture â€” Tradition Slots (High)"
  ec_tradition_slots_high_modifier_desc:0 "Two extra tradition slots while culture head."
 
  # Acceptance descs
@@ -118,15 +137,15 @@
  setting_ec_rule_hybrid_assist_acceptance_only:0 "Acceptance Only"
  setting_ec_rule_hybrid_assist_acceptance_only_desc:0 "Help hybridization by raising acceptance. Does not lower the hybridization threshold. Pair with vanilla Faster Hybrid & Divergence Cooldowns if you want age gates reduced."
  setting_ec_rule_hybrid_assist_acceptance_and_threshold:0 "Acceptance and Threshold"
- setting_ec_rule_hybrid_assist_acceptance_and_threshold_desc:0 "Also halves the hybridization threshold (~40→~20) when an Exalted Culturalist culture head has Mid or High hybrid tier. Soft-enhances Royal Court hybridize/diverge; not a hard DLC requirement for core play."
+ setting_ec_rule_hybrid_assist_acceptance_and_threshold_desc:0 "Also halves the hybridization threshold (~40â†’~20) when an Exalted Culturalist culture head has Mid or High hybrid tier. Soft-enhances Royal Court hybridize/diverge; not a hard DLC requirement for core play."
 
  # Notify events
  ec_events.1001.t:0 "An Exalted Culturalist Appointed"
- ec_events.1001.desc:0 "You have elevated a trusted figure as Exalted Culturalist. Their culture's innovations and traditions will surge while they remain culture head — and bound to your realm."
+ ec_events.1001.desc:0 "You have elevated a trusted figure as Exalted Culturalist. Their culture's innovations and traditions will surge while they remain culture head â€” and bound to your realm."
  ec_events.1001.a:0 "Let the culture flourish."
 
  ec_events.1002.t:0 "Exalted Culturalist"
- ec_events.1002.desc:0 "Your patron has named you Exalted Culturalist. Guide your culture's fascinations and traditions — full power unlocks when you are culture head."
+ ec_events.1002.desc:0 "Your patron has named you Exalted Culturalist. Guide your culture's fascinations and traditions â€” full power unlocks when you are culture head."
  ec_events.1002.a:0 "I will exalt our people."
 
  ec_events.1101.t:0 "Exalted Culturalist Revoked"
@@ -141,57 +160,57 @@
  ec_events.1202.desc:0 "Having left your patron's realm, you are no longer Exalted Culturalist."
  ec_events.1202.a:0 "The mosaic fades."
 
- ec_events.1301.t:0 "Culture Head — Full Package"
+ ec_events.1301.t:0 "Culture Head â€” Full Package"
  ec_events.1301.desc:0 "You are now culture head. Your Exalted Culturalist honor unlocks full fascination, tradition, and acceptance power."
  ec_events.1301.a:0 "The culture answers."
 
  ec_events.1302.t:0 "No Longer Culture Head"
- ec_events.1302.desc:0 "You are no longer culture head. Your Exalted Culturalist package is reduced — Learning remains, but cultural-head fascinations and tradition discounts sleep until you reclaim headship."
+ ec_events.1302.desc:0 "You are no longer culture head. Your Exalted Culturalist package is reduced â€” Learning remains, but cultural-head fascinations and tradition discounts sleep until you reclaim headship."
  ec_events.1302.a:0 "For now."
 
  # Settings hub
  ec_settings.1001.t:0 "Exalted Culture"
- ec_settings.1001.desc_intro:0 "Your Exalted Culturalists and the intensity tiers that empower them. Full fantasy needs culture head. Cycle a setting to change it; the board refreshes after each click. Bestow and revoke stay on character interactions.\n\nStacking with Supreme Sovereign makes fascination absurd — allowed by default; use the exclusion game rule if you prefer a hard block."
+ ec_settings.1001.desc_intro:0 "Your Exalted Culturalists and the intensity tiers that empower them. Full fantasy needs culture head. Cycle a setting to change it; the board refreshes after each click. Bestow and revoke stay on character interactions.\n\nStacking with Supreme Sovereign makes fascination absurd â€” allowed by default; use the exclusion game rule if you prefer a hard block."
  ec_settings.1001.desc_blank:0 "\n"
  ec_settings.1001.desc_holders_head:0 "Holders under you: at least one Exalted Culturalist is culture head (full package active)."
- ec_settings.1001.desc_holders_reduced:0 "Holders under you: Exalted Culturalist(s) bound, but none currently culture head (reduced package — Learning only until headship)."
+ ec_settings.1001.desc_holders_reduced:0 "Holders under you: Exalted Culturalist(s) bound, but none currently culture head (reduced package â€” Learning only until headship)."
  ec_settings.1001.desc_holders_none:0 "Holders under you: none. Use Bestow Exalted Culturalist on a character (ideally a culture head)."
  ec_settings.1001.desc_footer:0 "Accelerates innovations (fascinations), tradition adoption, acceptance, and hybrid/diverge reachability. Soft-recommends Royal Court for hybridize/diverge UI. Pair with vanilla Faster Hybrid & Divergence Cooldowns for age gates. Conflicts possible with other mods that override tradition cost/cooldown script values."
  ec_settings.1001.close:0 "Done"
 
- ec_settings.tt.fascination:0 "Fascination / innovations — cultural-head fascination add & mult, plus innovation progress chance from fascination.\n\nLow: +10 add / +25% mult / +5 chance.\nMid: +25 / +75% / +15.\nHigh: +50 / +150% / +30.\n\nOnly while culture head. Click to cycle. Current tier is on the button."
- ec_settings.tt.tradition:0 "Traditions — prestige cost & add-tradition cooldown (script value), plus extra tradition slots.\n\nLow: ×0.75 cost/cooldown, +0 slots.\nMid: ×0.5, +1 slot.\nHigh: ×0.25, +2 slots.\n\nOnly while culture head. Click to cycle."
- ec_settings.tt.acceptance:0 "Acceptance — cultural-head acceptance gain multiplier, plus inspire/yearly drip when the pulse rule is on.\n\nLow / Mid / High scale the mult (0.25 / 0.75 / 1.5).\n\nOnly while culture head for the mult. Click to cycle."
- ec_settings.tt.hybrid:0 "Hybrid assist — Mid/High enable threshold halving when the Hybrid Assist game rule is Acceptance and Threshold.\n\nLow: threshold assist off.\nMid/High: threshold ~20 when rule allows.\n\nAcceptance path always helped by the Acceptance tier. Click to cycle."
+ ec_settings.tt.fascination:0 "Fascination / innovations â€” cultural-head fascination add & mult, plus innovation progress chance from fascination.\n\nLow: +10 add / +25% mult / +5 chance.\nMid: +25 / +75% / +15.\nHigh: +50 / +150% / +30.\n\nOnly while culture head. Click to cycle. Current tier is on the button."
+ ec_settings.tt.tradition:0 "Traditions â€” prestige cost & add-tradition cooldown (script value), plus extra tradition slots.\n\nLow: Ã—0.75 cost/cooldown, +0 slots.\nMid: Ã—0.5, +1 slot.\nHigh: Ã—0.25, +2 slots.\n\nOnly while culture head. Click to cycle."
+ ec_settings.tt.acceptance:0 "Acceptance â€” cultural-head acceptance gain multiplier, plus inspire/yearly drip when the pulse rule is on.\n\nLow / Mid / High scale the mult (0.25 / 0.75 / 1.5).\n\nOnly while culture head for the mult. Click to cycle."
+ ec_settings.tt.hybrid:0 "Hybrid assist â€” Mid/High enable threshold halving when the Hybrid Assist game rule is Acceptance and Threshold.\n\nLow: threshold assist off.\nMid/High: threshold ~20 when rule allows.\n\nAcceptance path always helped by the Acceptance tier. Click to cycle."
  ec_settings.tt.close:0 "Close the Exalted Culture hub without changing anything."
 
- ec_settings.tier.fascination_1:0 "Fascination: Low (1) — +10 / +25% / +5"
- ec_settings.tier.fascination_2:0 "Fascination: Mid (2) — +25 / +75% / +15"
- ec_settings.tier.fascination_3:0 "Fascination: High (3) — +50 / +150% / +30"
- ec_settings.opt.fascination_1:0 "Fascination: Low (1) — cycle"
- ec_settings.opt.fascination_2:0 "Fascination: Mid (2) — cycle"
- ec_settings.opt.fascination_3:0 "Fascination: High (3) — cycle"
+ ec_settings.tier.fascination_1:0 "Fascination: Low (1) â€” +10 / +25% / +5"
+ ec_settings.tier.fascination_2:0 "Fascination: Mid (2) â€” +25 / +75% / +15"
+ ec_settings.tier.fascination_3:0 "Fascination: High (3) â€” +50 / +150% / +30"
+ ec_settings.opt.fascination_1:0 "Fascination: Low (1) â€” cycle"
+ ec_settings.opt.fascination_2:0 "Fascination: Mid (2) â€” cycle"
+ ec_settings.opt.fascination_3:0 "Fascination: High (3) â€” cycle"
 
- ec_settings.tier.tradition_1:0 "Traditions: Low (1) — ×0.75 cost/CD, +0 slots"
- ec_settings.tier.tradition_2:0 "Traditions: Mid (2) — ×0.5 cost/CD, +1 slot"
- ec_settings.tier.tradition_3:0 "Traditions: High (3) — ×0.25 cost/CD, +2 slots"
- ec_settings.opt.tradition_1:0 "Traditions: Low (1) — cycle"
- ec_settings.opt.tradition_2:0 "Traditions: Mid (2) — cycle"
- ec_settings.opt.tradition_3:0 "Traditions: High (3) — cycle"
+ ec_settings.tier.tradition_1:0 "Traditions: Low (1) â€” Ã—0.75 cost/CD, +0 slots"
+ ec_settings.tier.tradition_2:0 "Traditions: Mid (2) â€” Ã—0.5 cost/CD, +1 slot"
+ ec_settings.tier.tradition_3:0 "Traditions: High (3) â€” Ã—0.25 cost/CD, +2 slots"
+ ec_settings.opt.tradition_1:0 "Traditions: Low (1) â€” cycle"
+ ec_settings.opt.tradition_2:0 "Traditions: Mid (2) â€” cycle"
+ ec_settings.opt.tradition_3:0 "Traditions: High (3) â€” cycle"
 
- ec_settings.tier.acceptance_1:0 "Acceptance: Low (1) — ×0.25 gain"
- ec_settings.tier.acceptance_2:0 "Acceptance: Mid (2) — ×0.75 gain"
- ec_settings.tier.acceptance_3:0 "Acceptance: High (3) — ×1.5 gain"
- ec_settings.opt.acceptance_1:0 "Acceptance: Low (1) — cycle"
- ec_settings.opt.acceptance_2:0 "Acceptance: Mid (2) — cycle"
- ec_settings.opt.acceptance_3:0 "Acceptance: High (3) — cycle"
+ ec_settings.tier.acceptance_1:0 "Acceptance: Low (1) â€” Ã—0.25 gain"
+ ec_settings.tier.acceptance_2:0 "Acceptance: Mid (2) â€” Ã—0.75 gain"
+ ec_settings.tier.acceptance_3:0 "Acceptance: High (3) â€” Ã—1.5 gain"
+ ec_settings.opt.acceptance_1:0 "Acceptance: Low (1) â€” cycle"
+ ec_settings.opt.acceptance_2:0 "Acceptance: Mid (2) â€” cycle"
+ ec_settings.opt.acceptance_3:0 "Acceptance: High (3) â€” cycle"
 
- ec_settings.tier.hybrid_1:0 "Hybrid: Low (1) — threshold assist off"
- ec_settings.tier.hybrid_2:0 "Hybrid: Mid (2) — threshold assist if rule on"
- ec_settings.tier.hybrid_3:0 "Hybrid: High (3) — threshold assist if rule on"
- ec_settings.opt.hybrid_1:0 "Hybrid: Low (1) — cycle"
- ec_settings.opt.hybrid_2:0 "Hybrid: Mid (2) — cycle"
- ec_settings.opt.hybrid_3:0 "Hybrid: High (3) — cycle"
+ ec_settings.tier.hybrid_1:0 "Hybrid: Low (1) â€” threshold assist off"
+ ec_settings.tier.hybrid_2:0 "Hybrid: Mid (2) â€” threshold assist if rule on"
+ ec_settings.tier.hybrid_3:0 "Hybrid: High (3) â€” threshold assist if rule on"
+ ec_settings.opt.hybrid_1:0 "Hybrid: Low (1) â€” cycle"
+ ec_settings.opt.hybrid_2:0 "Hybrid: Mid (2) â€” cycle"
+ ec_settings.opt.hybrid_3:0 "Hybrid: High (3) â€” cycle"
  ec_instant_convert_counties_decision:0 "Instant Cultural Conversion"
  ec_instant_convert_counties_decision_desc:0 "As an Exalted Culturalist, instantly convert every county in your sub-realm to your culture. Yearly cooldown."
  ec_instant_convert_counties_decision_tooltip:0 "Set all sub-realm counties to your culture"
@@ -207,26 +226,22 @@
  ec_language_mastery_modifier:0 "Exalted Language Mastery"
  ec_language_mastery_modifier_desc:0 "You can run many Learn Language schemes at once and finish them much faster."
 
- # Next-iter — paint / undo
+ # --- next-iter keys preserved from main ---
  ec_paint_dejure_kingdom_decision:0 "Paint De Jure Kingdom Culture"
  ec_paint_dejure_kingdom_decision_desc:0 "Paint the de jure counties of your capital's kingdom (or a held kingdom) to your culture. Snapshots the prior cultures for one undo. Applies a mild acceptance cushion so the paint is not a save-scorch. Caps at 80 counties."
  ec_paint_dejure_kingdom_decision_tooltip:0 "Convert de jure kingdom counties to your culture (yearly; undo available)"
  ec_paint_dejure_kingdom_decision_confirm:0 "Paint the Kingdom"
  ec_paint_dejure_kingdom_decision_effect_tt:0 "De jure kingdom counties become your culture; undo snapshot saved"
  ec_tt_paint_dejure_ready:0 "Landed with a resolvable de jure kingdom and foreign counties to paint"
-
  ec_undo_culture_paint_decision:0 "Undo Culture Paint"
  ec_undo_culture_paint_decision_desc:0 "Restore the county cultures from your last kingdom paint. Consumes the snapshot. No acceptance clawback."
  ec_undo_culture_paint_decision_tooltip:0 "Revert the last Exalted Culture kingdom paint"
  ec_undo_culture_paint_decision_confirm:0 "Undo Paint"
  ec_undo_culture_paint_decision_effect_tt:0 "Restores prior county cultures from the paint snapshot"
  ec_tt_undo_paint_ready:0 "A culture-paint undo snapshot is available"
-
  ec_paint_acceptance_cushion_desc:0 "Exalted culture-paint cushion"
-
- # Next-iter — express lane
  ec_hybrid_diverge_express_decision:0 "Hybridize / Diverge Express Lane"
- ec_hybrid_diverge_express_decision_desc:0 "Form the culture you want this decade. Assist acceptance and prestige for hybridize/diverge, or — at High hybrid intensity — form a hybrid or diverge immediately. Culture head required. Pair with vanilla Faster Hybrid & Divergence Cooldowns if age gates remain. Soft-recommends Royal Court for Form Hybrid Now."
+ ec_hybrid_diverge_express_decision_desc:0 "Form the culture you want this decade. Assist acceptance and prestige for hybridize/diverge, or â€” at High hybrid intensity â€” form a hybrid or diverge immediately. Culture head required. Pair with vanilla Faster Hybrid & Divergence Cooldowns if age gates remain. Soft-recommends Royal Court for Form Hybrid Now."
  ec_hybrid_diverge_express_decision_tooltip:0 "Open the hybridize/diverge express hub (10-year lane)"
  ec_hybrid_diverge_express_decision_confirm:0 "Open Express Lane"
  ec_hybrid_diverge_express_decision_effect_tt:0 "Opens the hybridize/diverge express hub"
@@ -237,16 +252,13 @@
  ec_tt_diverge_assist_valid:0 "Culture head and off express cooldown"
  ec_tt_form_hybrid_valid:0 "High hybrid tier, Royal Court hybridize feature, partner selected, off cooldown"
  ec_tt_diverge_now_valid:0 "High hybrid tier, culture head, off express cooldown"
-
  ec_select_hybrid_partner_interaction:0 "Select Hybrid Partner Culture"
  ec_select_hybrid_partner_interaction_desc:0 "Mark [recipient.GetShortUIName|U]'s culture as your hybrid partner for the Exalted Culture express lane, then reopen the express hub."
  ec_select_hybrid_partner_interaction_extra_icon:0 "$ec_select_hybrid_partner_interaction$"
-
  ec_hybrid_express_assist_desc:0 "Exalted hybrid express assist"
  ec_diverge_express_assist_desc:0 "Exalted diverge express assist"
-
  ec_express.1001.t:0 "Hybridize / Diverge Express"
- ec_express.1001.desc_intro:0 "Shape your culture this decade. Assist first, then use the vanilla hybridize/diverge UI — or Form Now at High hybrid intensity. Select a hybrid partner via character interaction when needed."
+ ec_express.1001.desc_intro:0 "Shape your culture this decade. Assist first, then use the vanilla hybridize/diverge UI â€” or Form Now at High hybrid intensity. Select a hybrid partner via character interaction when needed."
  ec_express.1001.desc_blank:0 "\n"
  ec_express.1001.desc_head_ok:0 "Culture head: full express package available."
  ec_express.1001.desc_need_head:0 "You are not culture head. Become culture head to use Hybrid/Diverge Assist or Form Now."
@@ -261,43 +273,37 @@
  ec_express.tt.diverge_assist:0 "Medium acceptance toward up to 8 foreign realm cultures, prestige cushion, 10-year cooldown."
  ec_express.tt.form_hybrid:0 "High only + Royal Court: acceptance assist, prestige cushion, then create hybrid with side effects."
  ec_express.tt.diverge_now:0 "High only: prestige cushion, then create a divergent culture with side effects."
-
- ec_express.opt.hybrid_assist_ready:0 "Hybrid Assist — ready"
- ec_express.opt.hybrid_assist_need_head:0 "Hybrid Assist — need culture head"
- ec_express.opt.hybrid_assist_cooldown:0 "Hybrid Assist — on cooldown"
- ec_express.opt.hybrid_assist_need_partner:0 "Hybrid Assist — select partner first"
-
- ec_express.opt.diverge_assist_ready:0 "Diverge Assist — ready"
- ec_express.opt.diverge_assist_need_head:0 "Diverge Assist — need culture head"
- ec_express.opt.diverge_assist_cooldown:0 "Diverge Assist — on cooldown"
-
- ec_express.opt.form_hybrid_ready:0 "Form Hybrid Now — ready"
- ec_express.opt.form_hybrid_need_high:0 "Form Hybrid Now — need High hybrid tier"
- ec_express.opt.form_hybrid_need_rc:0 "Form Hybrid Now — needs Royal Court"
- ec_express.opt.form_hybrid_need_partner:0 "Form Hybrid Now — select partner first"
- ec_express.opt.form_hybrid_blocked:0 "Form Hybrid Now — unavailable"
-
- ec_express.opt.diverge_now_ready:0 "Diverge Now — ready"
- ec_express.opt.diverge_now_need_high:0 "Diverge Now — need High hybrid tier"
- ec_express.opt.diverge_now_blocked:0 "Diverge Now — unavailable"
-
- # Toast events
+ ec_express.opt.hybrid_assist_ready:0 "Hybrid Assist â€” ready"
+ ec_express.opt.hybrid_assist_need_head:0 "Hybrid Assist â€” need culture head"
+ ec_express.opt.hybrid_assist_cooldown:0 "Hybrid Assist â€” on cooldown"
+ ec_express.opt.hybrid_assist_need_partner:0 "Hybrid Assist â€” select partner first"
+ ec_express.opt.diverge_assist_ready:0 "Diverge Assist â€” ready"
+ ec_express.opt.diverge_assist_need_head:0 "Diverge Assist â€” need culture head"
+ ec_express.opt.diverge_assist_cooldown:0 "Diverge Assist â€” on cooldown"
+ ec_express.opt.form_hybrid_ready:0 "Form Hybrid Now â€” ready"
+ ec_express.opt.form_hybrid_need_high:0 "Form Hybrid Now â€” need High hybrid tier"
+ ec_express.opt.form_hybrid_need_rc:0 "Form Hybrid Now â€” needs Royal Court"
+ ec_express.opt.form_hybrid_need_partner:0 "Form Hybrid Now â€” select partner first"
+ ec_express.opt.form_hybrid_blocked:0 "Form Hybrid Now â€” unavailable"
+ ec_express.opt.diverge_now_ready:0 "Diverge Now â€” ready"
+ ec_express.opt.diverge_now_need_high:0 "Diverge Now â€” need High hybrid tier"
+ ec_express.opt.diverge_now_blocked:0 "Diverge Now â€” unavailable"
  ec_events.1401.t:0 "Kingdom Culture Painted"
  ec_events.1401.desc:0 "Your Exalted Culturalist brush has repainted the de jure kingdom. An undo snapshot is ready if you regret the scorch."
  ec_events.1401.a:0 "The map remembers."
-
  ec_events.1402.t:0 "Culture Paint Undone"
  ec_events.1402.desc:0 "Prior county cultures have been restored from your last paint snapshot."
  ec_events.1402.a:0 "As it was."
-
  ec_events.1411.t:0 "Express Lane Primed"
- ec_events.1411.desc:0 "Acceptance and prestige cushions are in place. Use the vanilla hybridize or diverge tools while the decade window is warm — or wait for High Form Now next time."
+ ec_events.1411.desc:0 "Acceptance and prestige cushions are in place. Use the vanilla hybridize or diverge tools while the decade window is warm â€” or wait for High Form Now next time."
  ec_events.1411.a:0 "This decade is ours."
-
  ec_events.1412.t:0 "Hybrid Formed"
  ec_events.1412.desc:0 "Your Exalted express lane forged a hybrid culture with side effects. The decade cooldown begins."
  ec_events.1412.a:0 "A new people."
-
  ec_events.1413.t:0 "Culture Diverged"
  ec_events.1413.desc:0 "Your Exalted express lane created a divergent culture with side effects. The decade cooldown begins."
  ec_events.1413.a:0 "We walk alone."
+ ec_actions.1001.paint:0 "Paint De Jure Kingdom Culture"
+ ec_actions.1001.undo:0 "Undo Culture Paint"
+ ec_actions.1001.express:0 "Hybridize / Diverge Express Lane"
+ ec_tt_actions_paint_cd_ready:0 "Kingdom paint is off cooldown"

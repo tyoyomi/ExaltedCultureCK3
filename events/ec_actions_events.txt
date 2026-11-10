@@ -1,0 +1,148 @@
+namespace = ec_actions
+
+# Exalted Culture Actions hub â€” Done first (SS CM-46 craft).
+# Former major verbs: inspire / instant convert / master languages / paint / undo / express.
+# Event options hide when gated / on CD (engine has no grey-out for event options).
+
+ec_actions.1001 = {
+	type = character_event
+	title = ec_actions.1001.t
+	theme = culture
+
+	desc = ec_actions.1001.desc
+
+	# Done first â€” closes hub
+	option = {
+		name = ec_actions.1001.close
+		custom_tooltip = ec_actions.tt.close
+	}
+
+	# Inspire Cultural Acceptance
+	option = {
+		name = ec_actions.1001.inspire
+		trigger = {
+			has_trait = ec_exalted_culturalist
+			has_game_rule = ec_rule_acceptance_pulse_on
+			NOT = { has_game_rule = ec_rule_granting_disabled }
+			custom_tooltip = {
+				text = ec_tt_inspire_acceptance_ready
+				is_landed = yes
+				exists = culture
+				NOT = { has_character_flag = ec_inspire_acceptance_cooldown }
+			}
+		}
+		custom_tooltip = ec_inspire_acceptance_decision_effect_tt
+		ec_inspire_acceptance_effect = yes
+		trigger_event = ec_actions.1001
+	}
+
+	# Instant Cultural Conversion â€” former decision cooldown â†’ timed var
+	option = {
+		name = ec_actions.1001.convert
+		trigger = {
+			has_trait = ec_exalted_culturalist
+			NOT = { has_game_rule = ec_rule_granting_disabled }
+			custom_tooltip = {
+				text = ec_tt_instant_convert_ready
+				is_landed = yes
+				exists = culture
+				any_sub_realm_county = {
+					NOT = { culture = root.culture }
+				}
+			}
+			custom_tooltip = {
+				text = ec_tt_actions_convert_cd_ready
+				NOT = { exists = var:ec_cd_instant_convert }
+			}
+		}
+		custom_tooltip = ec_instant_convert_counties_decision_effect_tt
+		ec_instant_convert_subrealm_counties_effect = yes
+		set_variable = {
+			name = ec_cd_instant_convert
+			value = 1
+			days = 365
+		}
+		trigger_event = ec_actions.1001
+	}
+
+	# Master Realm Languages
+	option = {
+		name = ec_actions.1001.languages
+		trigger = {
+			has_trait = ec_exalted_culturalist
+			NOT = { has_game_rule = ec_rule_granting_disabled }
+			custom_tooltip = {
+				text = ec_tt_master_languages_ready
+				is_landed = yes
+			}
+		}
+		custom_tooltip = ec_master_languages_decision_effect_tt
+		ec_master_all_realm_languages_effect = yes
+		trigger_event = ec_actions.1001
+	}
+
+	# Paint De Jure Kingdom Culture (next-iter; rehomed off Major)
+	option = {
+		name = ec_actions.1001.paint
+		trigger = {
+			has_trait = ec_exalted_culturalist
+			NOT = { has_game_rule = ec_rule_granting_disabled }
+			custom_tooltip = {
+				text = ec_tt_paint_dejure_ready
+				is_landed = yes
+				exists = culture
+				OR = {
+					AND = {
+						exists = capital_county
+						exists = capital_county.kingdom
+					}
+					any_held_title = { tier = tier_kingdom }
+				}
+			}
+			custom_tooltip = {
+				text = ec_tt_actions_paint_cd_ready
+				NOT = { exists = var:ec_cd_paint_dejure }
+			}
+		}
+		custom_tooltip = ec_paint_dejure_kingdom_decision_effect_tt
+		ec_paint_dejure_kingdom_effect = yes
+		set_variable = {
+			name = ec_cd_paint_dejure
+			value = 1
+			days = 365
+		}
+		trigger_event = ec_actions.1001
+	}
+
+	# Undo Culture Paint
+	option = {
+		name = ec_actions.1001.undo
+		trigger = {
+			has_trait = ec_exalted_culturalist
+			NOT = { has_game_rule = ec_rule_granting_disabled }
+			custom_tooltip = {
+				text = ec_tt_undo_paint_ready
+				ec_paint_undo_available = yes
+			}
+		}
+		custom_tooltip = ec_undo_culture_paint_decision_effect_tt
+		ec_undo_culture_paint_effect = yes
+		trigger_event = ec_actions.1001
+	}
+
+	# Hybridize / Diverge Express Lane
+	option = {
+		name = ec_actions.1001.express
+		trigger = {
+			has_trait = ec_exalted_culturalist
+			NOT = { has_game_rule = ec_rule_granting_disabled }
+			custom_tooltip = {
+				text = ec_tt_express_lane_ready
+				is_landed = yes
+				exists = culture
+			}
+		}
+		custom_tooltip = ec_hybrid_diverge_express_decision_effect_tt
+		trigger_event = ec_express.1001
+	}
+}
