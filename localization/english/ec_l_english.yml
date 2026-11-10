@@ -18,6 +18,25 @@
  ec_manage_exalted_culture_decision_confirm:0 "Open Hub"
  ec_manage_exalted_culture_decision_effect_tt:0 "Opens the Exalted Culture manage hub"
 
+ # Decision group
+ decision_group_type_ec_exalted:0 "Exalted Culture"
+
+ # Actions hub
+ ec_exalted_actions_decision:0 "Exalted Culture: Actions"
+ ec_exalted_actions_decision_desc:0 "Open Culture Actions: inspire acceptance, instantly convert sub-realm counties, or master realm languages.\n\nDone is always first. Actions on cooldown or gated stay hidden until ready."
+ ec_exalted_actions_decision_tooltip:0 "Open Culture Actions for convert, acceptance, and language verbs"
+ ec_exalted_actions_decision_confirm:0 "Open Actions"
+ ec_exalted_actions_decision_effect_tt:0 "Opens the Exalted Culture Actions hub"
+
+ ec_actions.1001.t:0 "Culture Actions"
+ ec_actions.1001.desc:0 "Choose a Culture action. Done closes the hub. Gated or on-cooldown actions stay hidden until ready."
+ ec_actions.1001.close:0 "Done"
+ ec_actions.1001.inspire:0 "Inspire Cultural Acceptance"
+ ec_actions.1001.convert:0 "Instant Cultural Conversion"
+ ec_actions.1001.languages:0 "Master Realm Languages"
+ ec_actions.tt.close:0 "Close Culture Actions without taking an action."
+ ec_tt_actions_convert_cd_ready:0 "Instant conversion is off cooldown"
+
  ec_inspire_acceptance_decision:0 "Inspire Cultural Acceptance"
  ec_inspire_acceptance_decision_desc:0 "Spend a year of cultural momentum to raise acceptance between your culture and foreign cultures present in your realm. Works best as culture head."
  ec_inspire_acceptance_decision_tooltip:0 "Pulse medium acceptance toward foreign cultures in your sub-realm (yearly cooldown)"
