@@ -55,3 +55,14 @@ ec_tradition_slots_mid_modifier = {
 ec_tradition_slots_high_modifier = {
 	culture_tradition_max_add = @ec_tradition_slots_high
 }
+
+### Expansion + next-iter — language mastery (schemes) + guest/courtier diplomacy
+@ec_language_guest_opinion = 10
+@ec_language_courtier_opinion = 10
+
+ec_language_mastery_modifier = {
+	max_learn_language_schemes_add = 10
+	learn_language_scheme_phase_duration_add = -30
+	guest_opinion = @ec_language_guest_opinion
+	courtier_opinion = @ec_language_courtier_opinion
+}

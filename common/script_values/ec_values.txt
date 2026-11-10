@@ -31,6 +31,56 @@
 # Inspire Acceptance: max distinct cultures pulsed per click
 @ec_inspire_acceptance_target_cap = 8
 
+# Next-iter express lane / paint / language diplomacy
+@ec_express_lane_cooldown_days = 3650
+@ec_hybrid_express_prestige_refund = 500
+@ec_diverge_express_prestige_refund = 250
+@ec_paint_county_cap = 80
+@ec_language_guest_opinion = 10
+@ec_language_courtier_opinion = 10
+
+ec_hybrid_express_prestige_refund_value = {
+	value = @ec_hybrid_express_prestige_refund
+	if = {
+		limit = {
+			exists = var:ec_patron
+			var:ec_patron = {
+				exists = var:ec_cfg_hybrid
+				var:ec_cfg_hybrid = 3
+			}
+		}
+		value = 1000
+	}
+	else_if = {
+		limit = {
+			exists = var:ec_hybrid_tier
+			var:ec_hybrid_tier = 3
+		}
+		value = 1000
+	}
+}
+
+ec_diverge_express_prestige_refund_value = {
+	value = @ec_diverge_express_prestige_refund
+	if = {
+		limit = {
+			exists = var:ec_patron
+			var:ec_patron = {
+				exists = var:ec_cfg_hybrid
+				var:ec_cfg_hybrid = 3
+			}
+		}
+		value = 500
+	}
+	else_if = {
+		limit = {
+			exists = var:ec_hybrid_tier
+			var:ec_hybrid_tier = 3
+		}
+		value = 500
+	}
+}
+
 ec_max_culturalists_value = {
 	value = 1
 	if = {
@@ -53,12 +103,40 @@ ec_max_culturalists_value = {
 
 ec_exalted_culturalist_count_for_patron_value = {
 	value = 0
-	every_living_character = {
+	if = {
 		limit = {
-			has_trait = ec_exalted_culturalist
-			exists = var:ec_patron
-			var:ec_patron = root
+			any_in_list = {
+				variable = ec_bound_culturalists
+				count >= 1
+			}
 		}
-		add = 1
+		every_in_list = {
+			variable = ec_bound_culturalists
+			limit = {
+				is_alive = yes
+				has_trait = ec_exalted_culturalist
+				exists = var:ec_patron
+				var:ec_patron = root
+			}
+			add = 1
+		}
+	}
+	else = {
+		every_vassal = {
+			limit = {
+				has_trait = ec_exalted_culturalist
+				exists = var:ec_patron
+				var:ec_patron = root
+			}
+			add = 1
+		}
+		every_courtier_or_guest = {
+			limit = {
+				has_trait = ec_exalted_culturalist
+				exists = var:ec_patron
+				var:ec_patron = root
+			}
+			add = 1
+		}
 	}
 }

@@ -12,23 +12,49 @@ ec_settings.1001 = {
 		first_valid = {
 			triggered_desc = {
 				trigger = {
-					any_living_character = {
-						count >= 1
-						has_trait = ec_exalted_culturalist
-						exists = var:ec_patron
-						var:ec_patron = root
-						ec_is_culture_head = yes
+					OR = {
+						any_in_list = {
+							variable = ec_bound_culturalists
+							count >= 1
+							is_alive = yes
+							has_trait = ec_exalted_culturalist
+							ec_is_culture_head = yes
+						}
+						any_vassal = {
+							has_trait = ec_exalted_culturalist
+							exists = var:ec_patron
+							var:ec_patron = root
+							ec_is_culture_head = yes
+						}
+						any_courtier_or_guest = {
+							has_trait = ec_exalted_culturalist
+							exists = var:ec_patron
+							var:ec_patron = root
+							ec_is_culture_head = yes
+						}
 					}
 				}
 				desc = ec_settings.1001.desc_holders_head
 			}
 			triggered_desc = {
 				trigger = {
-					any_living_character = {
-						count >= 1
-						has_trait = ec_exalted_culturalist
-						exists = var:ec_patron
-						var:ec_patron = root
+					OR = {
+						any_in_list = {
+							variable = ec_bound_culturalists
+							count >= 1
+							is_alive = yes
+							has_trait = ec_exalted_culturalist
+						}
+						any_vassal = {
+							has_trait = ec_exalted_culturalist
+							exists = var:ec_patron
+							var:ec_patron = root
+						}
+						any_courtier_or_guest = {
+							has_trait = ec_exalted_culturalist
+							exists = var:ec_patron
+							var:ec_patron = root
+						}
 					}
 				}
 				desc = ec_settings.1001.desc_holders_reduced
@@ -105,13 +131,41 @@ ec_settings.1001 = {
 
 	immediate = {
 		ec_ensure_culturalist_defaults_effect = yes
-		every_living_character = {
+		if = {
 			limit = {
-				has_trait = ec_exalted_culturalist
-				exists = var:ec_patron
-				var:ec_patron = root
+				any_in_list = {
+					variable = ec_bound_culturalists
+					count >= 1
+				}
 			}
-			add_to_list = ec_my_culturalists
+			every_in_list = {
+				variable = ec_bound_culturalists
+				limit = {
+					is_alive = yes
+					has_trait = ec_exalted_culturalist
+					exists = var:ec_patron
+					var:ec_patron = root
+				}
+				add_to_list = ec_my_culturalists
+			}
+		}
+		else = {
+			every_vassal = {
+				limit = {
+					has_trait = ec_exalted_culturalist
+					exists = var:ec_patron
+					var:ec_patron = root
+				}
+				add_to_list = ec_my_culturalists
+			}
+			every_courtier_or_guest = {
+				limit = {
+					has_trait = ec_exalted_culturalist
+					exists = var:ec_patron
+					var:ec_patron = root
+				}
+				add_to_list = ec_my_culturalists
+			}
 		}
 	}
 

@@ -1,0 +1,143 @@
+namespace = ec_express
+
+# Hybridize / diverge express lane hub — Done first; ≤6 options (EC1–EC3)
+ec_express.1001 = {
+	type = character_event
+	title = ec_express.1001.t
+	theme = culture_change
+
+	desc = {
+		desc = ec_express.1001.desc_intro
+		desc = ec_express.1001.desc_blank
+		first_valid = {
+			triggered_desc = {
+				trigger = { ec_full_culture_package_active = yes }
+				desc = ec_express.1001.desc_head_ok
+			}
+			desc = ec_express.1001.desc_need_head
+		}
+		desc = ec_express.1001.desc_blank
+		first_valid = {
+			triggered_desc = {
+				trigger = { ec_has_hybrid_partner = yes }
+				desc = ec_express.1001.desc_partner_set
+			}
+			desc = ec_express.1001.desc_partner_none
+		}
+		desc = ec_express.1001.desc_blank
+		first_valid = {
+			triggered_desc = {
+				trigger = { has_character_flag = ec_express_lane_cooldown }
+				desc = ec_express.1001.desc_on_cooldown
+			}
+			desc = ec_express.1001.desc_ready
+		}
+		desc = ec_express.1001.desc_blank
+		desc = ec_express.1001.desc_footer
+	}
+
+	immediate = {
+		ec_ensure_culturalist_defaults_effect = yes
+	}
+
+	option = {
+		name = ec_express.1001.done
+		custom_tooltip = ec_express.tt.done
+	}
+
+	# Live labels show readiness; effects no-op when gates fail (character options have no is_valid)
+	option = {
+		name = {
+			text = {
+				first_valid = {
+					triggered_desc = {
+						trigger = {
+							ec_can_use_hybrid_express = yes
+							ec_has_hybrid_partner = yes
+						}
+						desc = ec_express.opt.hybrid_assist_ready
+					}
+					triggered_desc = {
+						trigger = { ec_full_culture_package_active = no }
+						desc = ec_express.opt.hybrid_assist_need_head
+					}
+					triggered_desc = {
+						trigger = { has_character_flag = ec_express_lane_cooldown }
+						desc = ec_express.opt.hybrid_assist_cooldown
+					}
+					desc = ec_express.opt.hybrid_assist_need_partner
+				}
+			}
+		}
+		custom_tooltip = ec_express.tt.hybrid_assist
+		ec_hybrid_express_assist_effect = yes
+	}
+
+	option = {
+		name = {
+			text = {
+				first_valid = {
+					triggered_desc = {
+						trigger = { ec_can_use_diverge_express = yes }
+						desc = ec_express.opt.diverge_assist_ready
+					}
+					triggered_desc = {
+						trigger = { ec_full_culture_package_active = no }
+						desc = ec_express.opt.diverge_assist_need_head
+					}
+					desc = ec_express.opt.diverge_assist_cooldown
+				}
+			}
+		}
+		custom_tooltip = ec_express.tt.diverge_assist
+		ec_diverge_express_assist_effect = yes
+	}
+
+	option = {
+		name = {
+			text = {
+				first_valid = {
+					triggered_desc = {
+						trigger = { ec_can_form_hybrid_now = yes }
+						desc = ec_express.opt.form_hybrid_ready
+					}
+					triggered_desc = {
+						trigger = { NOT = { ec_hybrid_tier_is_high = yes } }
+						desc = ec_express.opt.form_hybrid_need_high
+					}
+					triggered_desc = {
+						trigger = { NOT = { has_dlc_feature = hybridize_culture } }
+						desc = ec_express.opt.form_hybrid_need_rc
+					}
+					triggered_desc = {
+						trigger = { NOT = { ec_has_hybrid_partner = yes } }
+						desc = ec_express.opt.form_hybrid_need_partner
+					}
+					desc = ec_express.opt.form_hybrid_blocked
+				}
+			}
+		}
+		custom_tooltip = ec_express.tt.form_hybrid
+		ec_form_hybrid_now_effect = yes
+	}
+
+	option = {
+		name = {
+			text = {
+				first_valid = {
+					triggered_desc = {
+						trigger = { ec_can_diverge_now = yes }
+						desc = ec_express.opt.diverge_now_ready
+					}
+					triggered_desc = {
+						trigger = { NOT = { ec_hybrid_tier_is_high = yes } }
+						desc = ec_express.opt.diverge_now_need_high
+					}
+					desc = ec_express.opt.diverge_now_blocked
+				}
+			}
+		}
+		custom_tooltip = ec_express.tt.diverge_now
+		ec_diverge_now_effect = yes
+	}
+}

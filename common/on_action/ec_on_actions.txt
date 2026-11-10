@@ -1,4 +1,5 @@
 # Exalted Culture — append-only vanilla hooks (never overwrite effect/trigger on vanilla roots)
+# Next-iter: split title-gain (O(1) self) from title-lost (O(bound) patron walk) — EC25
 
 on_leave_court = {
 	on_actions = { ec_on_leave_court }
@@ -27,19 +28,25 @@ ec_on_join_court = {
 	}
 }
 
+### Title lost — strip + headship for self; bound-list walk when root is a patron
 on_title_lost = {
-	on_actions = { ec_on_title_change }
+	on_actions = { ec_on_title_lost }
 }
 
-on_title_gain = {
-	on_actions = { ec_on_title_change }
-}
-
-ec_on_title_change = {
+ec_on_title_lost = {
 	trigger = {
 		OR = {
 			has_trait = ec_exalted_culturalist
-			any_living_character = {
+			any_in_list = {
+				variable = ec_bound_culturalists
+				count >= 1
+			}
+			any_vassal = {
+				has_trait = ec_exalted_culturalist
+				exists = var:ec_patron
+				var:ec_patron = root
+			}
+			any_courtier_or_guest = {
 				has_trait = ec_exalted_culturalist
 				exists = var:ec_patron
 				var:ec_patron = root
@@ -52,15 +59,60 @@ ec_on_title_change = {
 			ec_evaluate_strip_exalted_culturalist_effect = yes
 			ec_on_culture_head_change_refresh_effect = yes
 		}
-		every_living_character = {
+		if = {
 			limit = {
-				has_trait = ec_exalted_culturalist
-				exists = var:ec_patron
-				var:ec_patron = root
+				any_in_list = {
+					variable = ec_bound_culturalists
+					count >= 1
+				}
 			}
-			ec_evaluate_strip_exalted_culturalist_effect = yes
-			ec_on_culture_head_change_refresh_effect = yes
+			every_in_list = {
+				variable = ec_bound_culturalists
+				limit = {
+					is_alive = yes
+					has_trait = ec_exalted_culturalist
+					exists = var:ec_patron
+					var:ec_patron = root
+				}
+				ec_evaluate_strip_exalted_culturalist_effect = yes
+				ec_on_culture_head_change_refresh_effect = yes
+			}
 		}
+		else = {
+			every_vassal = {
+				limit = {
+					has_trait = ec_exalted_culturalist
+					exists = var:ec_patron
+					var:ec_patron = root
+				}
+				ec_evaluate_strip_exalted_culturalist_effect = yes
+				ec_on_culture_head_change_refresh_effect = yes
+			}
+			every_courtier_or_guest = {
+				limit = {
+					has_trait = ec_exalted_culturalist
+					exists = var:ec_patron
+					var:ec_patron = root
+				}
+				ec_evaluate_strip_exalted_culturalist_effect = yes
+				ec_on_culture_head_change_refresh_effect = yes
+			}
+		}
+	}
+}
+
+### Title gain — O(1) self only; never walk bound list (EC25 / EC27)
+on_title_gain = {
+	on_actions = { ec_on_title_gain }
+}
+
+ec_on_title_gain = {
+	trigger = {
+		has_trait = ec_exalted_culturalist
+	}
+	effect = {
+		ec_evaluate_strip_exalted_culturalist_effect = yes
+		ec_on_culture_head_change_refresh_effect = yes
 	}
 }
 
@@ -86,6 +138,7 @@ ec_yearly_culture_check = {
 		has_trait = ec_exalted_culturalist
 	}
 	effect = {
+		ec_register_bound_culturalist_effect = yes
 		ec_evaluate_strip_exalted_culturalist_effect = yes
 		ec_on_culture_head_change_refresh_effect = yes
 		ec_yearly_acceptance_drip_effect = yes
@@ -98,13 +151,24 @@ on_death = {
 
 ec_on_death = {
 	effect = {
-		# Dying patron: rebind or strip culturalists
+		# Dying patron: rebind or strip culturalists (list / realm — never full-world)
 		if = {
 			limit = {
-				any_living_character = {
-					has_trait = ec_exalted_culturalist
-					exists = var:ec_patron
-					var:ec_patron = root
+				OR = {
+					any_in_list = {
+						variable = ec_bound_culturalists
+						count >= 1
+					}
+					any_vassal = {
+						has_trait = ec_exalted_culturalist
+						exists = var:ec_patron
+						var:ec_patron = root
+					}
+					any_courtier_or_guest = {
+						has_trait = ec_exalted_culturalist
+						exists = var:ec_patron
+						var:ec_patron = root
+					}
 				}
 			}
 			ec_on_patron_death_effect = yes

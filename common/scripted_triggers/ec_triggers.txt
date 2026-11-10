@@ -37,21 +37,20 @@ ec_actor_may_bestow_by_rule = {
 }
 
 ec_patron_under_culturalist_cap = {
-	# this = patron/actor. Save before any_living_character (where this becomes the iteratee).
+	# this = patron/actor. Binder list only (no full-world).
 	trigger_if = {
 		limit = { has_game_rule = ec_rule_max_culturalists_unlimited }
 		always = yes
 	}
 	trigger_else = {
-		save_temporary_scope_as = ec_cap_patron
 		custom_tooltip = {
 			text = ec_tt_under_culturalist_cap
 			NOT = {
-				any_living_character = {
+				any_in_list = {
+					variable = ec_bound_culturalists
 					count >= ec_max_culturalists_value
+					is_alive = yes
 					has_trait = ec_exalted_culturalist
-					exists = var:ec_patron
-					var:ec_patron = scope:ec_cap_patron
 				}
 			}
 		}
@@ -182,4 +181,69 @@ ec_actor_is_patron_of_recipient = {
 		exists = var:ec_patron
 		var:ec_patron = scope:actor
 	}
+}
+
+### Next-iter — express / paint / binder helpers
+ec_has_bound_culturalists = {
+	any_in_list = {
+		variable = ec_bound_culturalists
+		count >= 1
+	}
+}
+
+ec_paint_undo_available = {
+	has_character_flag = ec_paint_undo_available
+}
+
+ec_has_hybrid_partner = {
+	exists = var:ec_hybrid_partner_culture
+}
+
+ec_express_lane_ready = {
+	NOT = { has_character_flag = ec_express_lane_cooldown }
+}
+
+ec_hybrid_tier_is_high = {
+	OR = {
+		AND = {
+			exists = var:ec_patron
+			var:ec_patron = {
+				exists = var:ec_cfg_hybrid
+				var:ec_cfg_hybrid = 3
+			}
+		}
+		AND = {
+			exists = var:ec_hybrid_tier
+			var:ec_hybrid_tier = 3
+		}
+	}
+}
+
+ec_can_use_hybrid_express = {
+	has_trait = ec_exalted_culturalist
+	ec_full_culture_package_active = yes
+	is_landed = yes
+	exists = culture
+	ec_express_lane_ready = yes
+}
+
+ec_can_use_diverge_express = {
+	has_trait = ec_exalted_culturalist
+	ec_full_culture_package_active = yes
+	is_landed = yes
+	exists = culture
+	ec_express_lane_ready = yes
+}
+
+ec_can_form_hybrid_now = {
+	ec_can_use_hybrid_express = yes
+	ec_hybrid_tier_is_high = yes
+	has_dlc_feature = hybridize_culture
+	ec_has_hybrid_partner = yes
+}
+
+ec_can_diverge_now = {
+	# High hybrid hub tier + culture head; diverge UI soft-recommends RC but is not hard-gated here (EC7)
+	ec_can_use_diverge_express = yes
+	ec_hybrid_tier_is_high = yes
 }

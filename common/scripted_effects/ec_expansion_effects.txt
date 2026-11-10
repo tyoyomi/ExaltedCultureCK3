@@ -1,0 +1,55 @@
+# Exalted Culture — expansion pack (instant convert + language mastery)
+
+ec_instant_convert_subrealm_counties_effect = {
+	# this = exalted culturalist / landed ruler converting to their culture
+	if = {
+		limit = {
+			is_alive = yes
+			is_landed = yes
+			exists = culture
+			has_trait = ec_exalted_culturalist
+		}
+		save_scope_as = ec_converter
+		every_sub_realm_county = {
+			limit = {
+				NOT = { culture = scope:ec_converter.culture }
+			}
+			set_county_culture = scope:ec_converter.culture
+		}
+	}
+}
+
+ec_master_all_realm_languages_effect = {
+	# this = culturalist — learn languages of every culture present in the sub-realm
+	if = {
+		limit = {
+			is_alive = yes
+			has_trait = ec_exalted_culturalist
+		}
+		save_scope_as = ec_polyglot
+		every_sub_realm_county = {
+			culture = { save_temporary_scope_as = ec_lang_culture }
+			scope:ec_polyglot = {
+				if = {
+					limit = {
+						NOT = { knows_language_of_culture = scope:ec_lang_culture }
+					}
+					learn_language_of_culture = scope:ec_lang_culture
+				}
+			}
+		}
+		# Also own culture language (harmless if already known)
+		if = {
+			limit = { exists = culture }
+			culture = { save_temporary_scope_as = ec_own_culture }
+			if = {
+				limit = {
+					NOT = { knows_language_of_culture = scope:ec_own_culture }
+				}
+				learn_language_of_culture = scope:ec_own_culture
+			}
+		}
+		# Language diplomacy package (court language + guest/courtier opinion via mastery modifier)
+		ec_language_diplomacy_effect = yes
+	}
+}

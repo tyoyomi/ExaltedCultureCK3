@@ -1,0 +1,308 @@
+# Exalted Culture — next-iter wave (express / paint+undo / language diplomacy)
+# Design: internal/handoffs/ec-next-iter-wave-design.md (EC1–EC28)
+
+### Resolve paint kingdom — capital_county.kingdom, else any held kingdom
+ec_resolve_paint_kingdom_effect = {
+	# this = culturalist painter; deterministic: capital's de jure kingdom first
+	if = {
+		limit = {
+			exists = capital_county
+			exists = capital_county.kingdom
+		}
+		capital_county.kingdom = { save_scope_as = ec_paint_kingdom }
+	}
+	else = {
+		random_held_title = {
+			limit = { tier = tier_kingdom }
+			save_scope_as = ec_paint_kingdom
+		}
+	}
+}
+
+### Clear prior paint snapshot without restoring cultures (one-undo rule)
+ec_clear_prior_paint_snapshot_effect = {
+	if = {
+		limit = {
+			any_in_list = {
+				variable = ec_paint_snapshot_counties
+				count >= 1
+			}
+		}
+		every_in_list = {
+			variable = ec_paint_snapshot_counties
+			limit = { exists = var:ec_paint_prev_culture }
+			remove_variable = ec_paint_prev_culture
+		}
+		clear_variable_list = ec_paint_snapshot_counties
+	}
+	remove_character_flag = ec_paint_undo_available
+}
+
+### Snapshot + paint de jure kingdom + acceptance cushion
+ec_paint_dejure_kingdom_effect = {
+	if = {
+		limit = {
+			is_alive = yes
+			is_landed = yes
+			exists = culture
+			has_trait = ec_exalted_culturalist
+		}
+		save_scope_as = ec_painter
+		culture = { save_scope_as = ec_paint_culture }
+		ec_resolve_paint_kingdom_effect = yes
+		if = {
+			limit = { exists = scope:ec_paint_kingdom }
+			# Drop any prior undo batch (no restore)
+			ec_clear_prior_paint_snapshot_effect = yes
+			if = {
+				limit = { exists = var:ec_paint_batch_id }
+				change_variable = { name = ec_paint_batch_id add = 1 }
+			}
+			else = {
+				set_variable = { name = ec_paint_batch_id value = 1 }
+			}
+			set_variable = { name = ec_paint_count value = 0 }
+			scope:ec_paint_kingdom = {
+				every_de_jure_county = {
+					limit = {
+						exists = culture
+						NOT = { culture = scope:ec_paint_culture }
+						scope:ec_painter = {
+							var:ec_paint_count < @ec_paint_county_cap
+						}
+					}
+					# Snapshot previous culture on the county title
+					set_variable = {
+						name = ec_paint_prev_culture
+						value = culture
+					}
+					culture = {
+						if = {
+							limit = {
+								NOT = { is_in_list = ec_paint_displaced_cultures }
+								list_size = {
+									name = ec_paint_displaced_cultures
+									value < 8
+								}
+							}
+							add_to_list = ec_paint_displaced_cultures
+						}
+					}
+					set_county_culture = scope:ec_paint_culture
+					save_temporary_scope_as = ec_painted_county
+					scope:ec_painter = {
+						change_variable = { name = ec_paint_count add = 1 }
+						add_to_variable_list = {
+							name = ec_paint_snapshot_counties
+							target = scope:ec_painted_county
+						}
+					}
+				}
+			}
+			# Acceptance cushion toward displaced cultures
+			every_in_list = {
+				list = ec_paint_displaced_cultures
+				scope:ec_paint_culture = {
+					change_cultural_acceptance = {
+						target = prev
+						value = minor_cultural_acceptance_gain
+						desc = ec_paint_acceptance_cushion_desc
+					}
+				}
+			}
+			scope:ec_painter = {
+				if = {
+					limit = {
+						any_in_list = {
+							variable = ec_paint_snapshot_counties
+							count >= 1
+						}
+					}
+					add_character_flag = ec_paint_undo_available
+					trigger_event = ec_events.1401
+				}
+			}
+		}
+	}
+}
+
+ec_undo_culture_paint_effect = {
+	if = {
+		limit = {
+			has_trait = ec_exalted_culturalist
+			has_character_flag = ec_paint_undo_available
+		}
+		save_scope_as = ec_undo_painter
+		every_in_list = {
+			variable = ec_paint_snapshot_counties
+			limit = { exists = var:ec_paint_prev_culture }
+			set_county_culture = var:ec_paint_prev_culture
+			remove_variable = ec_paint_prev_culture
+		}
+		clear_variable_list = ec_paint_snapshot_counties
+		remove_character_flag = ec_paint_undo_available
+		trigger_event = ec_events.1402
+	}
+}
+
+### Ensure hybrid threshold Mid+ mirror on holder for express attempt (does not rewrite patron hub forever)
+ec_express_ensure_hybrid_tier_mid_effect = {
+	if = {
+		limit = {
+			OR = {
+				NOT = { exists = var:ec_hybrid_tier }
+				var:ec_hybrid_tier < 2
+			}
+		}
+		set_variable = { name = ec_hybrid_tier value = 2 }
+	}
+	if = {
+		limit = { ec_full_culture_package_active = yes }
+		add_character_flag = ec_full_package
+	}
+}
+
+### Shared express-lane decade cooldown
+ec_apply_express_lane_cooldown_effect = {
+	add_character_flag = {
+		flag = ec_express_lane_cooldown
+		days = @ec_express_lane_cooldown_days
+	}
+}
+
+### Hybrid Assist — major acceptance vs partner + prestige cushion + Mid+ hybrid mirror
+ec_hybrid_express_assist_effect = {
+	if = {
+		limit = {
+			ec_can_use_hybrid_express = yes
+			exists = var:ec_hybrid_partner_culture
+		}
+		save_scope_as = ec_express_actor
+		culture = { save_scope_as = ec_express_culture }
+		var:ec_hybrid_partner_culture = { save_scope_as = ec_partner_culture }
+		ec_express_ensure_hybrid_tier_mid_effect = yes
+		scope:ec_express_culture = {
+			change_cultural_acceptance = {
+				target = scope:ec_partner_culture
+				value = major_cultural_acceptance_gain
+				desc = ec_hybrid_express_assist_desc
+			}
+		}
+		add_prestige = ec_hybrid_express_prestige_refund_value
+		add_character_flag = {
+			flag = ec_hybrid_express_ready
+			days = @ec_express_lane_cooldown_days
+		}
+		ec_apply_express_lane_cooldown_effect = yes
+		trigger_event = ec_events.1411
+	}
+}
+
+### Diverge Assist — medium acceptance to ≤8 foreign realm cultures + smaller prestige cushion
+ec_diverge_express_assist_effect = {
+	if = {
+		limit = { ec_can_use_diverge_express = yes }
+		save_scope_as = ec_express_actor
+		culture = { save_scope_as = ec_express_culture }
+		ec_express_ensure_hybrid_tier_mid_effect = yes
+		every_sub_realm_county = {
+			limit = {
+				exists = culture
+				NOT = { culture = scope:ec_express_culture }
+			}
+			culture = {
+				if = {
+					limit = {
+						NOT = { is_in_list = ec_diverge_assist_cultures }
+						list_size = {
+							name = ec_diverge_assist_cultures
+							value < 8
+						}
+					}
+					add_to_list = ec_diverge_assist_cultures
+				}
+			}
+		}
+		every_in_list = {
+			list = ec_diverge_assist_cultures
+			scope:ec_express_culture = {
+				change_cultural_acceptance = {
+					target = prev
+					value = medium_cultural_acceptance_gain
+					desc = ec_diverge_express_assist_desc
+				}
+			}
+		}
+		add_prestige = ec_diverge_express_prestige_refund_value
+		add_character_flag = {
+			flag = ec_diverge_express_ready
+			days = @ec_express_lane_cooldown_days
+		}
+		ec_apply_express_lane_cooldown_effect = yes
+		trigger_event = ec_events.1411
+	}
+}
+
+### Form Hybrid Now — High + RC + partner; assist bump then create with side effects
+ec_form_hybrid_now_effect = {
+	if = {
+		limit = {
+			ec_can_form_hybrid_now = yes
+			exists = var:ec_hybrid_partner_culture
+		}
+		save_scope_as = ec_express_actor
+		culture = { save_scope_as = ec_express_culture }
+		var:ec_hybrid_partner_culture = { save_scope_as = ec_partner_culture }
+		ec_express_ensure_hybrid_tier_mid_effect = yes
+		# Acceptance assist first so the gate is reachable this decade
+		scope:ec_express_culture = {
+			change_cultural_acceptance = {
+				target = scope:ec_partner_culture
+				value = major_cultural_acceptance_gain
+				desc = ec_hybrid_express_assist_desc
+			}
+		}
+		add_prestige = ec_hybrid_express_prestige_refund_value
+		create_hybrid_culture_with_side_effects = scope:ec_partner_culture
+		ec_apply_express_lane_cooldown_effect = yes
+		trigger_event = ec_events.1412
+	}
+}
+
+### Diverge Now — High + culture head
+ec_diverge_now_effect = {
+	if = {
+		limit = { ec_can_diverge_now = yes }
+		ec_express_ensure_hybrid_tier_mid_effect = yes
+		add_prestige = ec_diverge_express_prestige_refund_value
+		create_divergent_culture_with_side_effects = yes
+		ec_apply_express_lane_cooldown_effect = yes
+		trigger_event = ec_events.1413
+	}
+}
+
+### Language diplomacy — court language + mastery modifier refresh (realm languages already learned by caller)
+ec_language_diplomacy_effect = {
+	if = {
+		limit = {
+			is_alive = yes
+			has_trait = ec_exalted_culturalist
+			exists = culture
+		}
+		# Court language: kingdom+ royal court only; graceful skip otherwise
+		if = {
+			limit = {
+				has_royal_court = yes
+				highest_held_title_tier >= tier_kingdom
+				knows_language_of_culture = culture
+			}
+			set_court_language = culture.language
+		}
+		# Refresh mastery modifier so guest/courtier opinion lands even if already applied from older build
+		remove_character_modifier = ec_language_mastery_modifier
+		add_character_modifier = {
+			modifier = ec_language_mastery_modifier
+			days = -1
+		}
+	}
+}

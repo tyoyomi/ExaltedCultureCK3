@@ -174,3 +174,59 @@ ec_revoke_exalted_culturalist_interaction = {
 		base = 0
 	}
 }
+
+### Next-iter — select hybrid partner culture (saves var, reopens express hub)
+ec_select_hybrid_partner_interaction = {
+	category = interaction_category_friendly
+	icon = scroll
+	interface_priority = 58
+	common_interaction = yes
+
+	desc = ec_select_hybrid_partner_interaction_desc
+
+	auto_accept = yes
+
+	is_shown = {
+		scope:actor = {
+			is_alive = yes
+			is_ai = no
+			has_trait = ec_exalted_culturalist
+			NOT = { has_game_rule = ec_rule_granting_disabled }
+		}
+		scope:recipient = {
+			is_alive = yes
+			exists = culture
+			scope:actor = { exists = culture }
+			NOT = { culture = scope:actor.culture }
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		scope:actor = {
+			custom_tooltip = {
+				text = ec_tt_express_needs_culture_head
+				ec_full_culture_package_active = yes
+			}
+		}
+		scope:recipient = {
+			custom_tooltip = {
+				text = ec_tt_hybrid_partner_different_culture
+				exists = culture
+				NOT = { culture = scope:actor.culture }
+			}
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			set_variable = {
+				name = ec_hybrid_partner_culture
+				value = scope:recipient.culture
+			}
+			trigger_event = ec_express.1001
+		}
+	}
+
+	ai_potential = { always = no }
+	ai_will_do = { base = 0 }
+}
