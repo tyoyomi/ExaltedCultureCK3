@@ -1,0 +1,7 @@
+# Exalted Culture — custom decision group (additive; does not replace vanilla major)
+
+ec_exalted = {
+	sort_order = 186
+	gui_tags = { big_button }
+	important_decision_group = yes
+}
